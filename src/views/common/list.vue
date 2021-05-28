@@ -2,9 +2,11 @@
   <div class="app-container">
     <el-table v-loading="listLoading"
       :data="list.data"
+      style="width: 100%"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         v-if="list && list.data.length"
         align="center"
@@ -20,19 +22,18 @@
         :prop="attr.value"
         :label="attr.label"
         :key="idx"
+        :width="attr.width ? attr.width : null"
       />
       <el-table-column
         v-if="list && list.data.length"
         fixed="right"
         align="center"
         label="操作"
-        width="200">
+        width="150">
         <template slot-scope="scope">
-          <el-button-group>
-            <el-button @click="handleClick(scope.row)" type="primary" size="small">查看</el-button>
-            <el-button type="success" size="small">编辑</el-button>
-            <el-button type="danger" size="small">删除</el-button>
-          </el-button-group>
+          <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
+          <el-button type="text">编辑</el-button>
+          <el-button type="text">删除</el-button>
         </template>
     </el-table-column>
     </el-table>

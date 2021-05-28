@@ -6,7 +6,7 @@ import {
   getModule
 } from 'vuex-module-decorators'
 import store from '@/store'
-
+import { devices, patrols, repairs } from '@/mock/device'
 interface TableColumn {
   label: string
   value: string
@@ -30,49 +30,11 @@ const request = (entity: string): Promise<Table> => {
   const data = (() => {
     switch (entity) {
       case '/device/list':
-        return {
-          data: [
-            {
-              id: 1,
-              no: 'SB015595',
-              name: '景观灯',
-              cat: '景观灯',
-              cnt: 1,
-              project: '都铎城邦 (云秀2期)',
-              district: '都铎城邦（云秀）6号院',
-              pos: '6号院正大门进口柱头灯'
-            },
-            {
-              id: 2,
-              no: 'SB015595',
-              name: '景观灯',
-              cat: '景观灯',
-              cnt: 1,
-              project: '都铎城邦 (云秀2期)',
-              district: '都铎城邦（云秀）6号院',
-              pos: '6号院正大门进口柱头灯'
-            },
-            {
-              id: 3,
-              no: 'SB015595',
-              name: '景观灯',
-              cat: '景观灯',
-              cnt: 1,
-              project: '都铎城邦 (云秀2期)',
-              district: '都铎城邦（云秀）6号院',
-              pos: '6号院正大门进口柱头灯'
-            }
-          ],
-          attrs: [
-            { label: '设备编码', value: 'no' },
-            { label: '设备名称', value: 'name' },
-            { label: '设备分类', value: 'cat' },
-            { label: '项目（楼盘', value: 'project' },
-            { label: '片区', value: 'district' },
-            { label: '位置', value: 'pos' },
-            { label: '数量', value: 'cnt' }
-          ]
-        }
+        return devices
+      case '/device/maintain/patrol/list':
+        return patrols
+      case '/device/maintain/repair/list':
+        return repairs
       default:
         return {
           data: [],
