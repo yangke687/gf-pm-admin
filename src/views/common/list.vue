@@ -9,7 +9,7 @@
     >
       <el-table-column
         v-if="list && list.data.length"
-        align="center"
+        align="left"
         label="序号"
         width="50"
       >
