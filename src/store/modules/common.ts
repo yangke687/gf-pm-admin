@@ -7,6 +7,16 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 
+interface TableColumn {
+  label: string
+  value: string
+}
+
+interface Table {
+  data: any[]
+  attrs: TableColumn[]
+}
+
 const timeout = (ms: number): Function => {
   return (data: Table) =>
     new Promise(resolve =>
@@ -17,7 +27,7 @@ const timeout = (ms: number): Function => {
 }
 
 const request = (entity: string): Promise<Table> => {
-  let data = (() => {
+  const data = (() => {
     switch (entity) {
       case '/device/list':
         return {
@@ -72,17 +82,6 @@ const request = (entity: string): Promise<Table> => {
   })()
   return timeout(1000)(data)
 }
-
-interface TableColumn {
-  label: string
-  value: string
-}
-
-interface Table {
-  data: any[]
-  attrs: TableColumn[]
-}
-
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
   list: Table = { data: [], attrs: [] }

@@ -6,6 +6,7 @@
       fit
       highlight-current-row>
       <el-table-column
+        v-if="list && list.data.length"
         align="center"
         label="序号"
         width="50"
@@ -21,6 +22,7 @@
         :key="idx"
       />
       <el-table-column
+        v-if="list && list.data.length"
         fixed="right"
         align="center"
         label="操作"
@@ -51,8 +53,8 @@ export default class extends Vue {
     deep: true
   })
   onRouteChange(to: Route, from: Route) {
-    const fromPath = from?.path;
-    const toPath = to?.path;
+    const fromPath = from?.path
+    const toPath = to?.path
     if (toPath && toPath !== fromPath) {
       this.getList(toPath)
     }
@@ -61,8 +63,6 @@ export default class extends Vue {
   get list() {
     return commonMod.list
   }
-
-  created() {}
 
   private async getList(path: string) {
     this.listLoading = true
