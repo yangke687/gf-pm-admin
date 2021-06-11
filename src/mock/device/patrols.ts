@@ -49,5 +49,12 @@ export default {
     { label: '巡查状态', value: 'status' },
     { label: '巡查日期', value: 'createdAt', width: 150 },
     { label: '巡查人员', value: 'createdBy' }
-  ]
+  ],
+  meta: {
+    pagination: {
+      pageSize: 1,
+      currentPage: 1,
+      totalPages: 3
+    }
+  }
 }

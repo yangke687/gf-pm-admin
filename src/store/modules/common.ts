@@ -12,13 +12,24 @@ interface TableColumn {
   value: string
 }
 
-interface Table {
+interface PaginationData {
+  pageSize: number
+  currentPage: number
+  totalPages: number
+}
+
+interface MetaData {
+  pagination?: PaginationData
+}
+
+interface TableData {
   data: any[]
   attrs: TableColumn[]
+  meta: MetaData
 }
 
 const timeout = (ms: number): Function => {
-  return (data: Table) =>
+  return (data: TableData) =>
     new Promise(resolve =>
       setTimeout(() => {
         resolve(data)
@@ -26,8 +37,8 @@ const timeout = (ms: number): Function => {
     )
 }
 
-const request = (entity: string): Promise<Table> => {
-  const data = (() => {
+const request = (entity: string, page: number): Promise<TableData> => {
+  const data: TableData = (() => {
     switch (entity) {
       case '/device/list':
         return devices
@@ -38,24 +49,46 @@ const request = (entity: string): Promise<Table> => {
       default:
         return {
           data: [],
-          attrs: []
+          attrs: [],
+          meta: {}
         }
     }
   })()
-  return timeout(1000)(data)
+
+  let dataItems = data.data
+
+  // 分页
+  if (data && data.meta && data.meta.pagination) {
+    const pageSize = data.meta.pagination.pageSize
+    const startPos = (page - 1) * pageSize
+    const endPos = page * pageSize
+    dataItems = data.data.slice(startPos, endPos)
+  }
+
+  return timeout(1000)({ ...data, data: dataItems })
 }
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
-  list: Table = { data: [], attrs: [] }
+  list: TableData = {
+    data: [],
+    attrs: [],
+    meta: { pagination: { pageSize: 10, totalPages: 1, currentPage: 1 } }
+  }
 
   @Mutation
-  fetchListSuccess(list: Table) {
+  fetchListSuccess(list: TableData) {
     this.list = list
   }
 
   @Action({ commit: 'fetchListSuccess' })
-  public async fetchList(entity: string): Promise<Table> {
-    return await request(entity)
+  public async fetchList({
+    path,
+    page
+  }: {
+    path: string
+    page: number
+  }): Promise<TableData> {
+    return await request(path, page)
   }
 }
 

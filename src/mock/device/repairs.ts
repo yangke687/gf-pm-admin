@@ -53,5 +53,12 @@ export default {
     { label: '维修结果', value: 'status' },
     { label: '维修日期', value: 'createdAt', width: 150 },
     { label: '处理人', value: 'createdBy' }
-  ]
+  ],
+  meta: {
+    pagination: {
+      pageSize: 1,
+      currentPage: 1,
+      totalPages: 3
+    }
+  }
 }

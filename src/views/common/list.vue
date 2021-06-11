@@ -35,8 +35,18 @@
           <el-button type="text">编辑</el-button>
           <el-button type="text">删除</el-button>
         </template>
-    </el-table-column>
+      </el-table-column>
     </el-table>
+    <div class="block pagination">
+      <el-pagination
+      background
+      layout="prev, pager, next"
+      :page-size="pagination.pageSize"
+      :current-page="pagination.currentPage"
+      :total="pagination.totalPages"
+      @current-change="onPageChange"
+     />
+    </div>
   </div>
 </template>
 
@@ -48,6 +58,7 @@ import { commonMod } from '@/store/modules/common'
 @Component({})
 export default class extends Vue {
   private listLoading = false
+  private path = '';
 
   @Watch('$route', {
     immediate: true,
@@ -57,7 +68,8 @@ export default class extends Vue {
     const fromPath = from?.path
     const toPath = to?.path
     if (toPath && toPath !== fromPath) {
-      this.getList(toPath)
+      this.path = toPath
+      this.getList(toPath, 1)
     }
   }
 
@@ -65,10 +77,27 @@ export default class extends Vue {
     return commonMod.list
   }
 
-  private async getList(path: string) {
+  get pagination() {
+    return commonMod.list.meta.pagination
+  }
+
+  private async getList(path: string, page: number) {
     this.listLoading = true
-    await commonMod.fetchList(path)
+    await commonMod.fetchList({ path, page })
+    this.listLoading = false
+  }
+
+  private async onPageChange(page: number) {
+    this.listLoading = true
+    await commonMod.fetchList({ path: this.path, page })
     this.listLoading = false
   }
 }
 </script>
+
+<style scoped>
+  .block.pagination{
+    margin: 20px 0;
+    text-align: center;
+  }
+</style>

@@ -12,7 +12,7 @@ export default {
     },
     {
       id: 2,
-      no: 'SB015595',
+      no: 'SB015596',
       name: '景观灯',
       cat: '景观灯',
       cnt: 1,
@@ -22,7 +22,7 @@ export default {
     },
     {
       id: 3,
-      no: 'SB015595',
+      no: 'SB015597',
       name: '景观灯',
       cat: '景观灯',
       cnt: 1,
@@ -39,5 +39,12 @@ export default {
     { label: '片区', value: 'district', width: 200 },
     { label: '位置', value: 'pos', width: 200 },
     { label: '数量', value: 'cnt' }
-  ]
+  ],
+  meta: {
+    pagination: {
+      pageSize: 1,
+      currentPage: 1,
+      totalPages: 3
+    }
+  }
 }
