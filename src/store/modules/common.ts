@@ -10,6 +10,7 @@ import { devices, patrols, repairs } from '@/mock/device'
 interface TableColumn {
   label: string
   value: string
+  filter?: object
 }
 
 interface PaginationData {
