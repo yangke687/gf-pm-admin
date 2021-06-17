@@ -37,7 +37,7 @@
           :placeholder="col.label"
         />
       </div>
-      <el-button class="filter-item btn" type="primary" icon="el-icon-search" @click="handleFilter">
+      <el-button v-if="attrs.length" class="filter-item btn" type="primary" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
       <el-button class="filter-item btn" type="primary" icon="el-icon-plus" @click="handleCreate">
