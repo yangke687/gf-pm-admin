@@ -12,6 +12,7 @@ import store from '@/store'
 import router from '@/router'
 import '@/icons/components'
 import '@/permission'
+import { permissionModule } from './store/modules/permission'
 
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {
@@ -22,8 +23,15 @@ Vue.use(SvgIcon, {
 
 Vue.config.productionTip = false
 
+router.beforeEach(async (to, from, next) => {
+  // 从后端获取菜单权限
+  const routes = await permissionModule.generateRoutes()
+  console.log('main routes', routes)
+  next()
+})
+
 new Vue({
   router,
   store,
-  render: (h) => h(App)
+  render: h => h(App)
 }).$mount('#app')
