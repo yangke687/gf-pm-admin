@@ -5,7 +5,7 @@
       <div class="fragment" v-for="(col, idx) in attrs" :key="idx">
         <!-- text input -->
         <el-input
-          v-if="col.filter.type === 'text'"
+          v-if="col.type === 'text'"
           v-model="filters[col.value]"
           :placeholder="col.label"
           style="width: 200px;"
@@ -14,7 +14,7 @@
         />
         <!-- select -->
         <el-select
-          v-if="col.filter.type === 'select'"
+          v-if="col.type === 'select'"
           v-model="filters[col.value]"
           :placeholder="col.label"
           clearable
@@ -22,7 +22,7 @@
           style="width: 130px"
         >
           <el-option
-            v-for="(item, idx) in col.filter.options"
+            v-for="(item, idx) in col.options"
             :key="idx"
             :label="item.label"
             :value="item.value"
@@ -30,7 +30,7 @@
         </el-select>
         <!-- date picker -->
         <el-date-picker
-          v-if="col.filter.type === 'date'"
+          v-if="col.type === 'date'"
           v-model="filters[col.value]"
           type="date"
           class="filter-item date-picker"
@@ -40,7 +40,7 @@
       <el-button v-if="attrs.length" class="filter-item btn" type="primary" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
-      <el-button class="filter-item btn" type="primary" icon="el-icon-plus" @click="handleCreate">
+      <el-button class="filter-item btn" type="primary" icon="el-icon-plus" @click="handleAdd">
         新建
       </el-button>
     </div>
@@ -79,11 +79,12 @@
         width="150">
         <template slot-scope="scope">
           <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
-          <el-button type="text">编辑</el-button>
+          <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
           <el-button type="text">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <!-- pagination -->
     <div class="block pagination">
       <el-pagination
       background
@@ -130,7 +131,7 @@ export default class extends Vue {
   }
 
   get attrs() {
-    return commonMod.list.attrs.filter(attr => attr.filter)
+    return commonMod.list.attrs.filter(attr => attr.filterable)
   }
 
   private async getList(path: string, page: number) {
@@ -150,11 +151,28 @@ export default class extends Vue {
   }
 
   private handleFilter() {
-    return null;
+    return null
   }
 
-  private handleCreate() {
-    return null;
+  private gotoSingleForm() {
+    const urlPieces = this.path.split('/')
+    urlPieces[urlPieces.length - 1] = 'single'
+    const path = urlPieces.join('/')
+    this.$router.push(path)
+  }
+
+  private handleAdd() {
+    // 清空单条记录
+    commonMod.setSingle({})
+    // 路由跳转
+    this.gotoSingleForm()
+  }
+
+  private handleEdit(single: Object) {
+    // 设置单条记录
+    commonMod.setSingle(single)
+    // 路由跳转
+    this.gotoSingleForm()
   }
 }
 </script>

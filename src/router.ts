@@ -176,6 +176,14 @@ export default new Router({
           meta: { title: '设备信息' }
         },
         {
+          path: 'single',
+          component: () =>
+            import(
+              /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
+            ),
+          meta: { title: '新建/编辑', hidden: true }
+        },
+        {
           path: 'maintain',
           component: RouterView,
           meta: { title: '设备维保' },

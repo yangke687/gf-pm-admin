@@ -7,10 +7,10 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { devices, patrols, repairs } from '@/mock/device'
-interface TableColumn {
+export interface TableColumn {
   label: string
   value: string
-  filter?: object
+  filterable?: boolean
 }
 
 interface PaginationData {
@@ -70,6 +70,7 @@ const request = (entity: string, page: number): Promise<TableData> => {
 }
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
+  // 列表数据
   list: TableData = {
     data: [],
     attrs: [],
@@ -90,6 +91,14 @@ export class Common extends VuexModule {
     page: number
   }): Promise<TableData> {
     return await request(path, page)
+  }
+
+  // 单条数据
+  single: Object = {}
+
+  @Mutation
+  setSingle(singleData: Object) {
+    this.single = singleData
   }
 }
 

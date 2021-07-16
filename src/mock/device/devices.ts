@@ -9,7 +9,7 @@ export default {
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
-      createdAt: '21/11/11'
+      createdAt: '2021-11-11'
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ export default {
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
-      createdAt: '21/11/11'
+      createdAt: '2021-11-11'
     },
     {
       id: 3,
@@ -31,32 +31,43 @@ export default {
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
-      createdAt: '21/11/11'
+      createdAt: '2021-11-11'
     }
   ],
   attrs: [
-    { label: '设备编码', value: 'no', width: 120, filter: { type: 'text' } },
-    { label: '设备名称', value: 'name', filter: { type: 'text' } },
+    {
+      label: '设备编码',
+      value: 'no',
+      width: 120,
+      type: 'text',
+      filterable: true
+    },
+    {
+      label: '设备名称',
+      value: 'name',
+      type: 'text',
+      filterable: true
+    },
     {
       label: '设备分类',
       value: 'cat',
-      filter: {
-        type: 'select',
-        options: [
-          { label: '室内', value: '室内' },
-          { label: '室外', value: '室外' }
-        ]
-      }
+      type: 'select',
+      options: [
+        { label: '室内', value: '室内' },
+        { label: '室外', value: '室外' }
+      ],
+      filterable: true
     },
-    { label: '项目（楼盘', value: 'project', width: 200 },
-    { label: '片区', value: 'district', width: 200 },
-    { label: '位置', value: 'pos', width: 200 },
-    { label: '数量', value: 'cnt' },
+    { label: '项目（楼盘)', value: 'project', width: 200, type: 'text' },
+    { label: '片区', value: 'district', width: 200, type: 'text' },
+    { label: '位置', value: 'pos', width: 200, type: 'textarea' },
+    { label: '数量', value: 'cnt', type: 'text' },
     {
       label: '创建时间',
       value: 'createdAt',
+      type: 'date',
       sortable: true,
-      filter: { type: 'date' }
+      filterable: true
     }
   ],
   meta: {
