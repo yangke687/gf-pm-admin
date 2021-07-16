@@ -197,12 +197,28 @@ export default new Router({
               meta: { title: '巡查记录' }
             },
             {
+              path: 'patrol/single',
+              component: () =>
+                import(
+                  /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
+                ),
+              meta: { title: '新建/编辑', hidden: true }
+            },
+            {
               path: 'repair/list',
               component: () =>
                 import(
                   /* webpackChunkName: "common-data-list" */ '@/views/common/list.vue'
                 ),
               meta: { title: '维修记录' }
+            },
+            {
+              path: 'repair/single',
+              component: () =>
+                import(
+                  /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
+                ),
+              meta: { title: '新建/编辑', hidden: true }
             }
           ]
         }

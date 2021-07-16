@@ -10,7 +10,7 @@ export default {
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
       status: '正常',
-      createdAt: '21-05-21 10:23',
+      createdAt: '2021-05-21',
       createdBy: '管理员'
     },
     {
@@ -23,7 +23,7 @@ export default {
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
       status: '正常',
-      createdAt: '21-05-21 10:23',
+      createdAt: '2021-05-21',
       createdBy: '管理员'
     },
     {
@@ -36,19 +36,19 @@ export default {
       district: '都铎城邦（云秀）6号院',
       pos: '6号院正大门进口柱头灯',
       status: '正常',
-      createdAt: '21-05-21 10:23',
+      createdAt: '2021-05-21',
       createdBy: '管理员'
     }
   ],
   attrs: [
-    { label: '项目（楼盘', value: 'project', width: 200 },
-    { label: '片区', value: 'district', width: 200 },
-    { label: '位置', value: 'pos', width: 200 },
-    { label: '设备编码', value: 'no', width: 120 },
-    { label: '设备名称', value: 'name' },
-    { label: '巡查状态', value: 'status' },
-    { label: '巡查日期', value: 'createdAt', width: 150 },
-    { label: '巡查人员', value: 'createdBy' }
+    { label: '项目（楼盘)', value: 'project', width: 200, type: 'text' },
+    { label: '片区', value: 'district', width: 200, type: 'text' },
+    { label: '位置', value: 'pos', width: 200, type: 'textarea' },
+    { label: '设备编码', value: 'no', width: 120, type: 'text' },
+    { label: '设备名称', value: 'name', type: 'text' },
+    { label: '巡查状态', value: 'status', type: 'text' },
+    { label: '巡查日期', value: 'createdAt', width: 150, type: 'date' },
+    { label: '巡查人员', value: 'createdBy', type: 'text' }
   ],
   meta: {
     pagination: {
