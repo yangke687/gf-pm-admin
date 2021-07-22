@@ -7,9 +7,16 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store'
 import { devices, patrols, repairs } from '@/mock/device'
+
+export interface TableColumnOpt {
+  label: string
+  value: string | number
+}
 export interface TableColumn {
   label: string
   value: string
+  type: string
+  options?: TableColumnOpt[]
   filterable?: boolean
 }
 
@@ -23,7 +30,7 @@ interface MetaData {
   pagination?: PaginationData
 }
 
-interface TableData {
+export interface TableData {
   data: any[]
   attrs: TableColumn[]
   meta: MetaData

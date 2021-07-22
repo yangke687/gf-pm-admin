@@ -46,7 +46,7 @@
     </div>
     <!-- list table -->
     <el-table v-loading="listLoading"
-      :data="list.data"
+      :data="renderListData(list)"
       style="width: 100%"
       border
       fit
@@ -99,9 +99,10 @@
 </template>
 
 <script lang="ts">
+import find from 'lodash/find';
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
-import { commonMod } from '@/store/modules/common'
+import { commonMod, TableData, TableColumn, TableColumnOpt } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
@@ -173,6 +174,23 @@ export default class extends Vue {
     commonMod.setSingle(single)
     // 路由跳转
     this.gotoSingleForm()
+  }
+
+  private renderListData(list: TableData) {
+    return list.data.map(row => {
+      for (let colName in row) {
+        const attr = find(list.attrs, (attr: TableColumn) => attr.value === colName);
+        if (attr) {
+          if (attr.type === 'radio') {
+            const option = find(attr.options, (opt: TableColumnOpt) => opt.value === row[colName])
+            if (option) {
+              row[colName] = option.label
+            }
+          }
+        }
+      }
+      return row
+    })
   }
 }
 </script>
