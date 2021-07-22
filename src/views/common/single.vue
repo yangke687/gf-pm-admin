@@ -41,6 +41,19 @@
           type="date"
           placeholder="请选择"
         />
+        <!-- checkbox -->
+        <el-radio-group
+          v-else-if="attr.type === 'radio'"
+          v-model="form[attr.value]"
+        >
+          <el-radio
+            v-for="(opt, idx) in attr.options"
+            :label="opt.value"
+            :key="idx"
+          >
+            {{opt.label}}
+          </el-radio>
+        </el-radio-group>
       </el-form-item>
       <!-- 按钮 -->
       <el-form-item>
@@ -84,6 +97,10 @@ export default class extends Vue {
 
   private goBack() {
     this.$router.go(-1)
+  }
+
+  private onSubmit() {
+    return null
   }
 
   created() {
