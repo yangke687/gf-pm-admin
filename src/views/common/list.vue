@@ -99,7 +99,8 @@
 </template>
 
 <script lang="ts">
-import find from 'lodash/find';
+import find from 'lodash/find'
+import cloneDeep from 'lodash/cloneDeep'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
 import { commonMod, TableData, TableColumn, TableColumnOpt } from '@/store/modules/common'
@@ -171,13 +172,15 @@ export default class extends Vue {
 
   private handleEdit(single: Object) {
     // 设置单条记录
-    commonMod.setSingle(single)
+    const data = find(this.list.data, row => row.id === single.id)
+    commonMod.setSingle(data)
     // 路由跳转
     this.gotoSingleForm()
   }
 
   private renderListData(list: TableData) {
-    return list.data.map(row => {
+    const data = cloneDeep(list.data)
+    return data.map(row => {
       for (let colName in row) {
         const attr = find(list.attrs, (attr: TableColumn) => attr.value === colName);
         if (attr) {
