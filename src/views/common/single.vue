@@ -41,7 +41,7 @@
           type="date"
           placeholder="请选择"
         />
-        <!-- checkbox -->
+        <!-- radio -->
         <el-radio-group
           v-else-if="attr.type === 'radio'"
           v-model="form[attr.value]"
@@ -54,6 +54,16 @@
             {{opt.label}}
           </el-radio>
         </el-radio-group>
+        <!-- checkbox -->
+        <el-checkbox-group
+          v-else-if="attr.type === 'checkbox'"
+          v-model="form[attr.value]">
+          <el-checkbox
+            v-for="(opt, idx) in attr.options"
+            :label="opt.label"
+            :key="idx"
+          />
+        </el-checkbox-group>
       </el-form-item>
       <!-- 按钮 -->
       <el-form-item>

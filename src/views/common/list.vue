@@ -190,6 +190,9 @@ export default class extends Vue {
               row[colName] = option.label
             }
           }
+          if (attr.type === 'checkbox') {
+            row[colName] = row[colName].join(',')
+          }
         }
       }
       return row
