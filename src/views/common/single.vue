@@ -82,14 +82,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
-import { commonMod, TableColumn } from '@/store/modules/common'
+import { Component, Vue } from 'vue-property-decorator'
+import { commonMod, TableColumn, TableData } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
-  private form = {}
+  private form: { [key:string]: any } = {}
 
-  get list() {
+  get list(): TableData {
     return commonMod.list
   }
 
@@ -118,6 +118,7 @@ export default class extends Vue {
     if (!this.list || !this.list.data || this.list.data.length === 0) {
       this.getList()
     }
+
     // 加载单条数据
     this.form = commonMod.single
   }

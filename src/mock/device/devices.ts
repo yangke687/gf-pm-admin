@@ -3,8 +3,8 @@ export default {
     {
       id: 1,
       no: 'SB015595',
-      name: '景观灯',
-      cat: '景观灯',
+      name: '景观灯1',
+      cat: '室外',
       cnt: 1,
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
@@ -16,8 +16,8 @@ export default {
     {
       id: 2,
       no: 'SB015596',
-      name: '景观灯',
-      cat: '景观灯',
+      name: '景观灯2',
+      cat: '室外',
       cnt: 1,
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
@@ -29,8 +29,8 @@ export default {
     {
       id: 3,
       no: 'SB015597',
-      name: '景观灯',
-      cat: '景观灯',
+      name: '景观灯3',
+      cat: '室外',
       cnt: 1,
       project: '都铎城邦 (云秀2期)',
       district: '都铎城邦（云秀）6号院',
@@ -93,7 +93,7 @@ export default {
   ],
   meta: {
     pagination: {
-      pageSize: 1,
+      pageSize: 10,
       currentPage: 1,
       totalPages: 3
     }

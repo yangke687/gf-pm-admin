@@ -10,7 +10,7 @@ import { devices, patrols, repairs } from '@/mock/device'
 
 export interface TableColumnOpt {
   label: string
-  value: string | number
+  value?: string | number
 }
 export interface TableColumn {
   label: string
