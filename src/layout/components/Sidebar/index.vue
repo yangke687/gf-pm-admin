@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
     <el-menu
       :default-active="activeMenu"
       :collapse="isCollapse"
@@ -8,24 +8,70 @@
       :active-text-color="variables.menuActiveText"
       :unique-opened="false"
       :collapse-transition="false"
-      mode="vertical"
+      mode="horizontal"
     >
-      <sidebar-item
+      <!-- <sidebar-item
         v-for="route in routes"
         :key="route.path"
         :item="route"
         :base-path="route.path"
         :is-collapse="isCollapse"
-      />
+      /> -->
+      <template v-for="(route,idx) in routes">
+        <!-- 隐藏的菜单项不显示 -->
+        <template v-if="route.meta && route.meta.hidden" />
+        <!-- 显示的菜单项 -->
+        <template v-else>
+          <!-- 只有一级的菜单 -->
+          <el-menu-item
+            v-if="
+              theOnlyOneChild(route) &&
+              !theOnlyOneChild(route).children &&
+              theOnlyOneChild(route).meta"
+            :key="idx"
+            :index="route.path"
+          >
+            <span
+              v-if="theOnlyOneChild(route).meta.title"
+              slot="title"
+            >{{ theOnlyOneChild(route).meta.title }}</span>
+          </el-menu-item>
+          <!-- 含有子级的菜单 -->
+          <el-submenu v-else
+            :index="route.path"
+            :key="idx">
+            <span
+              v-if="route.meta.title"
+              slot="title"
+            >{{ route.meta.title }}</span>
+            <!-- 二级子菜单 -->
+            <template v-for="(subRoute, subIdx) in route.children">
+              <el-menu-item
+                :index="subRoute.path"
+                :key="subIdx"
+              >
+                <span
+                  v-if="subRoute.meta.title"
+                  slot="title"
+                >{{ subRoute.meta.title }}</span>
+              </el-menu-item>
+            </template>
+            <!-- end of 二级子菜单  -->
+          </el-submenu>
+          <!-- end of 含有子级的菜单 -->
+        </template>
+      </template>
     </el-menu>
-  </el-scrollbar>
+  <!-- </el-scrollbar> -->
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { RouteConfig } from 'vue-router'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
 import SidebarItem from './SidebarItem.vue'
 import variables from '@/styles/_variables.scss'
+import { isExternal } from '@/utils/validate'
 
 @Component({
   name: 'SideBar',
@@ -34,6 +80,8 @@ import variables from '@/styles/_variables.scss'
   }
 })
 export default class extends Vue {
+  @Prop({ default: '' }) private basePath!: string
+
   get sidebar() {
     return AppModule.sidebar
   }
@@ -57,6 +105,35 @@ export default class extends Vue {
 
   get isCollapse() {
     return !this.sidebar.opened
+  }
+
+  private showingChildNumber(route: RouteConfig): number {
+    if (route.children) {
+      const showingChildren = route.children.filter((item) => {
+        if (item.meta && item.meta.hidden) {
+          return false
+        } else {
+          return true
+        }
+      })
+      return showingChildren.length
+    }
+    return 0
+  }
+
+  private theOnlyOneChild(route: RouteConfig) {
+    console.log('here', route)
+    if (this.showingChildNumber(route) > 1) {
+      return null
+    }
+    if (route.children) {
+      for (const child of route.children) {
+        if (!child.meta || !child.meta.hidden) {
+          return child
+        }
+      }
+    }
+    return { ...route, path: '' }
   }
 }
 </script>
@@ -95,7 +172,5 @@ export default class extends Vue {
 
 .el-menu {
   border: none;
-  height: 100%;
-  width: 100% !important;
 }
 </style>
