@@ -1,19 +1,22 @@
 <template>
-  <div
+  <el-container
     :class="classObj"
     class="app-wrapper"
   >
-    <div
+    <!-- <div
       v-if="classObj.mobile && sidebar.opened"
       class="drawer-bg"
       @click="handleClickOutside"
-    />
-    <sidebar class="sidebar-container" />
-    <div class="main-container">
+    /> -->
+    <el-header>
+      <div class="brand">YYDS物业公司名称</div>
+      <sidebar class="sidebar-container" />
+    </el-header>
+    <el-main class="main-container">
       <!-- <navbar /> -->
       <app-main />
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -48,6 +51,24 @@ export default class extends mixins(ResizeMixin) {
 </script>
 
 <style lang="scss" scoped>
+.el-header {
+  display: flex;
+  padding: 0 40px;
+  background: $menuBg;
+
+  .brand {
+    @include flex-align-items-center;
+    margin-right: 115px;
+    color: #FFF;
+    font-size: 20px;
+  }
+}
+
+.el-main {
+  padding: 0;
+  width: 40%;
+}
+
 .app-wrapper {
   @include clearfix;
   position: relative;

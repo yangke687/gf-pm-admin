@@ -39,7 +39,9 @@
           <!-- 含有子级的菜单 -->
           <el-submenu v-else
             :index="route.path"
-            :key="idx">
+            :key="idx"
+            popper-class="el-sub-menu"
+          >
             <span
               v-if="route.meta.title"
               slot="title"
@@ -71,7 +73,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
 import SidebarItem from './SidebarItem.vue'
 import variables from '@/styles/_variables.scss'
-import { isExternal } from '@/utils/validate'
 
 @Component({
   name: 'SideBar',
@@ -160,6 +161,35 @@ export default class extends Vue {
 
     &.is-horizontal {
       display: none;
+    }
+  }
+}
+
+.el-menu-item, .el-submenu {
+  &.is-active {
+    border: none !important;
+  }
+
+  .el-submenu__title {
+    border: none !important;
+  }
+}
+
+.el-sub-menu {
+  .el-menu--popup-bottom-start{
+    margin-top: 0;
+  }
+
+  .el-menu {
+    background-color: $subMenuBg !important;
+
+    .el-menu-item {
+      background-color: $subMenuBg !important;
+
+      &:hover,&.is-active {
+        color: $subMenuActiveText !important;
+        background-color: $subMenuActiveBg !important;
+      }
     }
   }
 }
