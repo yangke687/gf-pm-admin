@@ -8,6 +8,7 @@
       :active-text-color="variables.menuActiveText"
       :unique-opened="false"
       :collapse-transition="false"
+      :router="true"
       mode="horizontal"
     >
       <!-- <sidebar-item
@@ -46,6 +47,8 @@
               v-if="route.meta.title"
               slot="title"
             >{{ route.meta.title }}</span>
+            <!-- 向上箭头 -->
+            <div class="arrow-up-box" />
             <!-- 二级子菜单 -->
             <template v-for="(subRoute, subIdx) in route.children">
               <el-menu-item
@@ -172,24 +175,43 @@ export default class extends Vue {
   .el-submenu__title {
     border: none !important;
   }
+
+  .el-submenu__icon-arrow, .el-icon-arrow-down {
+    display: none;
+  }
 }
 
 .el-sub-menu {
+  position: relative;
+
   .el-menu--popup-bottom-start{
     margin-top: 0;
   }
 
   .el-menu {
     background-color: $subMenuBg !important;
+    min-width: 115px;
 
     .el-menu-item {
       background-color: $subMenuBg !important;
+      text-align: center;
 
       &:hover,&.is-active {
         color: $subMenuActiveText !important;
         background-color: $subMenuActiveBg !important;
       }
     }
+  }
+
+  .arrow-up-box {
+    position: absolute;
+    left: 0;
+    top: -26px;
+    width: 0;
+    height: 0;
+    border: 13px solid red;
+    border-color: $subMenuBg;
+    border-color: transparent transparent $subMenuBg transparent;
   }
 }
 </style>
