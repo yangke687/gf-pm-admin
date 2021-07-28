@@ -123,7 +123,6 @@ export default class extends Vue {
   }
 
   private theOnlyOneChild(route: RouteConfig) {
-    console.log('here', route)
     if (this.showingChildNumber(route) > 1) {
       return null
     }
