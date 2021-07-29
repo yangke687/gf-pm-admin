@@ -8,12 +8,23 @@
       class="drawer-bg"
       @click="handleClickOutside"
     /> -->
+
+    <!-- 头部 -->
     <el-header>
-      <div class="brand">YYDS物业公司名称</div>
-      <sidebar class="sidebar-container" />
+      <!-- Logo -->
+      <div style="display: flex;">
+        <div class="brand">YYDS物业公司名称</div>
+        <!-- 导航栏 -->
+        <sidebar class="sidebar-container" />
+      </div>
+      <!-- 用户头像 -->
+      <div class="profile">
+        <navbar />
+      </div>
     </el-header>
+
+    <!-- 主内容 -->
     <el-main class="main-container">
-      <!-- <navbar /> -->
       <app-main />
     </el-main>
   </el-container>
@@ -22,7 +33,8 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
-import { DeviceType, AppModule } from '@/store/modules/app'
+// import { DeviceType, AppModule } from '@/store/modules/app'
+import { AppModule } from '@/store/modules/app'
 import { AppMain, Navbar, Sidebar } from './components'
 import ResizeMixin from './mixin/resize'
 
@@ -52,7 +64,7 @@ export default class extends mixins(ResizeMixin) {
 
 <style lang="scss" scoped>
 .el-header {
-  display: flex;
+  @include flex-justify-space-between;
   padding: 0 40px;
   background: $menuBg;
 
