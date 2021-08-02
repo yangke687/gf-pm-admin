@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import moment from 'moment'
 
 import 'normalize.css'
 import ElementUI from 'element-ui'
@@ -14,6 +15,7 @@ import '@/icons/components'
 import '@/permission'
 import { permissionModule } from './store/modules/permission'
 
+Vue.prototype.moment = moment
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {
   tagName: 'svg-icon',
@@ -23,7 +25,7 @@ Vue.use(SvgIcon, {
 
 Vue.config.productionTip = false
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   // 从后端获取菜单权限
   const routes = await permissionModule.generateRoutes()
   console.log('main routes', routes)

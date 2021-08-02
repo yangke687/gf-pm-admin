@@ -51,7 +51,7 @@ export default class extends mixins(ResizeMixin) {
     return {
       // hideSidebar: !this.sidebar.opened,
       // openSidebar: this.sidebar.opened,
-      withoutAnimation: this.sidebar.withoutAnimation,
+      withoutAnimation: this.sidebar.withoutAnimation
       // mobile: this.device === DeviceType.Mobile
     }
   }
@@ -78,7 +78,6 @@ export default class extends mixins(ResizeMixin) {
 
 .el-main {
   padding: 0;
-  width: 40%;
 }
 
 .app-wrapper {
