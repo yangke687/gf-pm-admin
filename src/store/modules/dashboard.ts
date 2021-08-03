@@ -1,6 +1,7 @@
 import { VuexModule, Module, getModule } from 'vuex-module-decorators'
 import store from '@/store'
 import { undo as undoPendingTasks } from '@/mock/dashboard/pending-tasks'
+import { undo as undoCenterTasks } from '@/mock/dashboard/center-tasks'
 
 export interface Task {
   title: string // 任务标题
@@ -26,7 +27,7 @@ class Dashboard extends VuexModule {
 
   // 任务中心
   centerData: TaskGroup = {
-    undo: [],
+    undo: undoCenterTasks,
     doing: [],
     done: []
   }

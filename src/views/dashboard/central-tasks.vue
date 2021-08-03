@@ -1,0 +1,69 @@
+<template>
+  <el-tabs v-model="activeTab">
+    <!-- 待办任务 -->
+    <el-tab-pane name="first">
+      <span slot="label">
+        <el-badge :value="centralData.undo.length" class="item">
+          待处理
+        </el-badge>
+      </span>
+      <TaskList :list="centralData.undo" :key="centralData.undo.length" />
+    </el-tab-pane>
+    <!-- 任务中心 -->
+    <el-tab-pane name="second">
+      <span slot="label">
+        <el-badge :value="centralData.done.length" class="item">
+          处理中
+        </el-badge>
+      </span>
+      <TaskList :list="centralData.done" />
+    </el-tab-pane>
+    <!-- 通知 -->
+    <el-tab-pane name="third">
+      <span slot="label">
+        <el-badge :value="centralData.doing.length" class="item">
+          已处理
+        </el-badge>
+      </span>
+      <TaskList :list="centralData.doing" />
+    </el-tab-pane>
+  </el-tabs>
+</template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import { DashboardModule } from '@/store/modules/dashboard'
+import TaskList from '@/components/Task/QuickViewList.vue'
+
+@Component({
+  name: 'PendingTask',
+  components: {
+    TaskList
+  }
+})
+export default class extends Vue {
+  private activeTab = 'first';
+
+  get centralData() {
+    return DashboardModule.centerData
+  }
+}
+</script>
+
+<style lang="scss">
+  .el-badge.item {
+    display: flex;
+    align-items: center;
+
+    .el-badge__content.is-fixed{
+      margin-left: 5px;
+      position: inherit;
+      top: unset;
+      right: unset;
+      transform: unset;
+    }
+  }
+</style>
+
+<style lang="scss" scoped>
+</style>
