@@ -65,7 +65,7 @@ export default class extends mixins(ResizeMixin) {
 <style lang="scss" scoped>
 .el-header {
   @include flex-justify-space-between;
-  padding: 0 40px;
+  padding: 0 70px;
   background: $menuBg;
 
   .brand {
@@ -98,9 +98,9 @@ export default class extends mixins(ResizeMixin) {
 }
 
 .main-container {
+  padding: 0 70px;
   min-height: 100%;
   transition: margin-left .28s;
-  // margin-left: $sideBarWidth;
   position: relative;
 }
 

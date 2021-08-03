@@ -1,5 +1,5 @@
 <template>
-  <ul class="notice-list">
+  <ul class="notice-list root">
     <li class="notice-list-item" v-for="(notice, idx) in noticeData" :key="idx">
       <h5>{{ notice.title }}</h5>
       <span class="timestamp">
@@ -24,6 +24,11 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .root{
+    background: white;
+    min-height: 295px;
+  }
+
   .notice-list {
     margin: 0;
     padding: 0;
@@ -31,7 +36,7 @@ export default class extends Vue {
 
     .notice-list-item {
       @include flex-justify-space-between;
-      padding: 14px 0;
+      padding: 14px 10px;
 
       h5 {
         margin: 0;

@@ -1,5 +1,5 @@
 <template>
-  <el-tabs v-model="activeTab">
+  <el-tabs class="root" v-model="activeTab">
     <!-- 待办任务 -->
     <el-tab-pane name="first">
       <span slot="label">
@@ -53,6 +53,7 @@ export default class extends Vue {
 <style lang="scss">
   .el-badge.item {
     display: flex;
+    padding: 0 20px;
     align-items: center;
 
     .el-badge__content.is-fixed{
@@ -66,4 +67,8 @@ export default class extends Vue {
 </style>
 
 <style lang="scss" scoped>
+  .root{
+    background: white;
+    min-height: 295px;
+  }
 </style>
