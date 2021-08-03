@@ -2,6 +2,7 @@ import { VuexModule, Module, getModule } from 'vuex-module-decorators'
 import store from '@/store'
 import { undo as undoPendingTasks } from '@/mock/dashboard/pending-tasks'
 import { undo as undoCenterTasks } from '@/mock/dashboard/center-tasks'
+import notices from '@/mock/dashboard/notices'
 
 export interface Task {
   title: string // 任务标题
@@ -33,6 +34,7 @@ class Dashboard extends VuexModule {
   }
 
   // 通知
+  noticeData = notices
 }
 
 export const DashboardModule = getModule(Dashboard)

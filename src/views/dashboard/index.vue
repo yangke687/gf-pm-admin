@@ -7,7 +7,9 @@
       <el-col :span="8">
         <CentralTaskTab />
       </el-col>
-      <el-col :span="8"></el-col>
+      <el-col :span="8">
+        <NoticeTab />
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -16,13 +18,15 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { UserModule } from '@/store/modules/user'
 import PendingTaskTab from './pending-task.vue'
-import CentralTaskTab from './central-tasks.vue'
+import CentralTaskTab from './central-task.vue'
+import NoticeTab from './notice.vue'
 
 @Component({
   name: 'Dashboard',
   components: {
     PendingTaskTab,
-    CentralTaskTab
+    CentralTaskTab,
+    NoticeTab
   }
 })
 export default class extends Vue {
