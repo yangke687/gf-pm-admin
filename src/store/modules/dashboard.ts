@@ -35,6 +35,32 @@ class Dashboard extends VuexModule {
 
   // 通知
   noticeData = notices
+
+  // 现金流
+  cash = {
+    title: {
+      text: '现金流'
+    },
+    legend: {
+      data: ['收入', '支出']
+    },
+    xAxis: {
+      data: ['2021/01', '2021/02', '2021/03', '2021/04']
+    },
+    yAxis: {},
+    series: [
+      {
+        name: '收入',
+        type: 'bar',
+        data: [200, 120, 240, 330]
+      },
+      {
+        name: '支出',
+        type: 'bar',
+        data: [120, 100, 440, 320]
+      }
+    ]
+  }
 }
 
 export const DashboardModule = getModule(Dashboard)

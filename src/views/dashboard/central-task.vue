@@ -51,6 +51,10 @@ export default class extends Vue {
 </script>
 
 <style lang="scss">
+  .root {
+    border-radius: 6px;
+  }
+
   .el-badge.item {
     display: flex;
     align-items: center;

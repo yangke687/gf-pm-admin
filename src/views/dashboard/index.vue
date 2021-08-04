@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <!-- quick view -->
     <el-row gutter="30">
       <el-col :span="8">
         <div class="block-header">
@@ -23,6 +24,17 @@
         <NoticeTab />
       </el-col>
     </el-row>
+    <!-- 图表 -->
+    <el-row gutter="30">
+      <!-- 现金流图 -->
+      <el-col :span="12">
+        <CashChart />
+      </el-col>
+      <!-- 收入统计图 -->
+      <el-col :span="12">
+
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -32,13 +44,15 @@ import { UserModule } from '@/store/modules/user'
 import PendingTaskTab from './pending-task.vue'
 import CentralTaskTab from './central-task.vue'
 import NoticeTab from './notice.vue'
+import CashChart from './charts/cash.vue'
 
 @Component({
   name: 'Dashboard',
   components: {
     PendingTaskTab,
     CentralTaskTab,
-    NoticeTab
+    NoticeTab,
+    CashChart
   }
 })
 export default class extends Vue {

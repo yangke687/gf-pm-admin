@@ -102,6 +102,7 @@ export default class extends mixins(ResizeMixin) {
   min-height: 100%;
   transition: margin-left .28s;
   position: relative;
+  background: $dashboardBgColor;
 }
 
 .sidebar-container {

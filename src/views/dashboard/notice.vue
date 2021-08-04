@@ -27,6 +27,7 @@ export default class extends Vue {
   .root{
     background: white;
     min-height: 295px;
+    border-radius: 6px;
   }
 
   .notice-list {
