@@ -17,6 +17,11 @@
   justify-content: space-between;
 }
 
+@mixin flex-justify-space-center {
+  display: flex;
+  justify-content: center;
+}
+
 @mixin flex-vertical {
   display: flex;
   flex-direction: column;

@@ -41,7 +41,7 @@ export default class extends Vue {
 
       h5 {
         margin: 0;
-        color: #303133;
+        color: $darkTextColor;
         font-size: 14px;
       }
 

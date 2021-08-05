@@ -25,7 +25,7 @@ import { Task } from '@/store/modules/dashboard'
   name: 'TaskQuickViewList'
 })
 export default class extends Vue {
-  @Prop({ default: [] }) readonly list: Task[]
+  @Prop({ default: [] }) readonly list!: Task[]
 }
 </script>
 
@@ -39,7 +39,7 @@ export default class extends Vue {
       @include flex-justify-space-between;
       padding: 20px 10px;
       color: #333;
-      border-bottom: 1px solid #E4E7ED;
+      border-bottom: 1px solid $grayBorderColor;
 
       .title {
         @include flex-vertical;
