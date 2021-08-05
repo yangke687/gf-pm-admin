@@ -25,14 +25,14 @@
       </el-col>
     </el-row>
     <!-- 图表 -->
-    <el-row gutter="30">
+    <el-row gutter="30" style="margin-top: 30px;">
       <!-- 现金流图 -->
       <el-col :span="12">
         <CashChart />
       </el-col>
       <!-- 收入统计图 -->
       <el-col :span="12">
-
+        <IncomeChart />
       </el-col>
     </el-row>
   </div>
@@ -45,6 +45,7 @@ import PendingTaskTab from './pending-task.vue'
 import CentralTaskTab from './central-task.vue'
 import NoticeTab from './notice.vue'
 import CashChart from './charts/cash.vue'
+import IncomeChart from './charts/income.vue'
 
 @Component({
   name: 'Dashboard',
@@ -52,7 +53,8 @@ import CashChart from './charts/cash.vue'
     PendingTaskTab,
     CentralTaskTab,
     NoticeTab,
-    CashChart
+    CashChart,
+    IncomeChart
   }
 })
 export default class extends Vue {

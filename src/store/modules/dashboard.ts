@@ -63,6 +63,46 @@ class Dashboard extends VuexModule {
       }
     ]
   }
+
+  // 收入统计
+  incomes = {
+    xAxis: {
+      data: ['2019', '2020', '2021']
+    },
+    yAxis: {},
+    series: [
+      {
+        name: '收入一',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      },
+      {
+        name: '收入二',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      },
+      {
+        name: '收入三',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      },
+      {
+        name: '收入四',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      },
+      {
+        name: '收入五',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      },
+      {
+        name: '收入六',
+        type: 'bar',
+        data: [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000]
+      }
+    ]
+  }
 }
 
 export const DashboardModule = getModule(Dashboard)

@@ -1,15 +1,7 @@
 <template>
   <div class="chart-container">
     <div class="chart-header">
-      <h4>现金流</h4>
-      <el-select v-model="year" placeholder="请选择" style="width: 100px;">
-      <el-option
-        v-for="item in years"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value">
-      </el-option>
-  </el-select>
+      <h4>收入统计</h4>
     </div>
     <div class="flex">
       <div id="myChart" ref="myChart"></div>
@@ -26,20 +18,12 @@ import { DashboardModule } from '@/store/modules/dashboard'
 export default class extends Vue {
   @Ref('myChart') readonly div!: HTMLDivElement
 
-  private year = 2021
-
-  private years = [
-    { label: '2021', value: 2021 },
-    { label: '2020', value: 2020 },
-    { label: '2019', value: 2019 }
-  ]
-
   mounted() {
-    this.draw(this.cashData)
+    this.draw(this.incomeData)
   }
 
-  get cashData() {
-    return DashboardModule.cash
+  get incomeData() {
+    return DashboardModule.incomes
   }
 
   private draw(data: any) {
@@ -57,7 +41,7 @@ export default class extends Vue {
     .chart-header {
       @include flex-justify-space-between;
       @include flex-align-items-center;
-      padding: 10px 18px;
+      padding: 19px 18px;
       border-bottom: 1px solid $grayBorderColor;
 
       h4 {
