@@ -31,6 +31,16 @@ export default [
         meta: {
           hidden: true
         }
+      },
+      {
+        path: '/call-center',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/call-center/index.vue'
+          ),
+        meta: {
+          hidden: true
+        }
       }
     ]
   },

@@ -77,7 +77,7 @@ export default class extends mixins(ResizeMixin) {
 }
 
 .el-main {
-  padding: 0;
+
 }
 
 .app-wrapper {

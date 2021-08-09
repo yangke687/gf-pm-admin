@@ -20,6 +20,7 @@ export default class extends Vue {}
 
 <style lang="scss" scoped>
 .app-main {
+  padding: 20px 15px;
   overflow: hidden;
 }
 </style>

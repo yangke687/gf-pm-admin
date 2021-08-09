@@ -78,7 +78,6 @@ export default class extends Vue {
     .block-header {
       @include flex-justify-space-between;
       @include flex-align-items-center;
-      margin-top: 20px;
       padding: 10px 0;
 
       h4 {
