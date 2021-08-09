@@ -23,7 +23,7 @@ export default class extends Vue {
   }
 
   get incomeData() {
-    return DashboardModule.incomes
+    return DashboardModule.incomesData
   }
 
   private draw(data: any) {

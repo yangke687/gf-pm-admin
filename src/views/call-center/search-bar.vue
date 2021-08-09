@@ -76,7 +76,7 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" socped>
-  .call-center {
+  .filter {
     &-container {
       padding: 25px;
       background: white;

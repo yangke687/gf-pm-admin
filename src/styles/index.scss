@@ -46,6 +46,7 @@ div:focus {
   padding: 20px;
 }
 
+// overwrite element default styles
 .el-button--primary {
   color: #FFFFFF;
   background-color: $violet;
@@ -58,4 +59,8 @@ div:focus {
     background-color: $violet;
     border-color: $violet;
   }
+}
+
+.el-tabs__item.is-top{
+  padding-left: 20px !important;
 }

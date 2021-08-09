@@ -39,7 +39,7 @@ export default class extends Vue {
   }
 
   get cashData() {
-    return DashboardModule.cash
+    return DashboardModule.cashData
   }
 
   private draw(data: any) {
