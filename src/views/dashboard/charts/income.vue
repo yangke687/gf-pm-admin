@@ -52,7 +52,7 @@ export default class extends Vue {
     }
 
     .flex{
-      @include flex-justify-space-center;
+      @include flex-justify-center;
 
       #myChart {
         width: 100%;

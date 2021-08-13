@@ -46,6 +46,11 @@ div:focus {
   padding: 20px;
 }
 
+.building-bg {
+  background: url('../assets/building.png') no-repeat center center;
+  background-size: cover;
+}
+
 // overwrite element default styles
 .el-button--primary {
   color: #FFFFFF;

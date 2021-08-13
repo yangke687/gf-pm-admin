@@ -25,7 +25,7 @@
       </el-col>
     </el-row>
     <!-- 图表 -->
-    <el-row gutter="30" style="margin-top: 30px;">
+    <el-row :gutter="30" style="margin-top: 30px;">
       <!-- 现金流图 -->
       <el-col :span="12">
         <CashChart />

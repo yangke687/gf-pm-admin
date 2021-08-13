@@ -42,16 +42,22 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="工单信息" name="second">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
       <el-tab-pane label="通话记录" name="thrid">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
       <el-tab-pane label="收费信息" name="fourth">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
       <el-tab-pane label="车辆信息" name="fifth">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
       <el-tab-pane label="装修信息" name="sixth">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
       <el-tab-pane label="车辆白名单" name="seventh">
+        <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
     </el-tabs>
   </div>
