@@ -30,6 +30,7 @@
       </el-col>
       <!-- 车位信息 -->
       <el-col :span="8">
+        <Parking />
       </el-col>
     </el-row>
 
@@ -43,13 +44,15 @@ import { Component, Vue } from 'vue-property-decorator'
 import FilterBar from './search-bar.vue'
 import Owner from './owner-summaries.vue'
 import House from '@/components/Dashboard/owner-house.vue'
+import Parking from '@/components/Dashboard/owner-parking.vue'
 
 @Component({
   name: 'Call-Center',
   components: {
     FilterBar,
     Owner,
-    House
+    House,
+    Parking
   }
 })
 export default class extends Vue {}
@@ -64,6 +67,8 @@ export default class extends Vue {}
 
       .buttons-group {
         background: white;
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
 
         .el-row {
           height: 100%;
@@ -82,10 +87,9 @@ export default class extends Vue {}
             }
 
             .el-icon {
-              font-size: 36px;
+              margin: 10px 0 5px 0;
+              font-size: 33px;
               font-weight: bold;
-              margin-bottom: 3px;
-              color: #293462;
             }
 
             span {
