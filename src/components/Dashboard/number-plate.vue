@@ -21,7 +21,7 @@ export default class extends Vue {
       color: white;
       background: #606266;
       border-radius: 6px;
-      width: 95px;
+      width: 90px;
       text-align: center;
 
       &.active {
@@ -30,7 +30,7 @@ export default class extends Vue {
 
       h1 {
         margin: 0;
-        padding: 5px 12px;
+        padding: 5px 0px;
         font-size: 12px;
         font-weight: normal;
         border: 1px solid #FBFCFF;

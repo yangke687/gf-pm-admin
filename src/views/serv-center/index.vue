@@ -109,11 +109,14 @@ export default class extends Vue {}
                 margin-top: 30px;
                 color: $redTextColor;
                 font-size: 14px;
+                font-weight: normal;
               }
             }
 
             &.number-plate {
               display: block;
+              padding: 10px 15px;
+
               > * {
                 margin: 0 10px 10px 0;
               }
