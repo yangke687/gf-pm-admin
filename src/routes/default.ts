@@ -41,6 +41,16 @@ export default [
         meta: {
           hidden: true
         }
+      },
+      {
+        path: '/serv-center',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/serv-center/index.vue'
+          ),
+        meta: {
+          hidden: true
+        }
       }
     ]
   },

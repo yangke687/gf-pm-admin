@@ -88,7 +88,7 @@ export default class extends Vue {
 
       .more {
         font-size: 12px;
-        color: #909399;
+        color: $darkGrayTextColor;
         cursor: pointer;
       }
     }

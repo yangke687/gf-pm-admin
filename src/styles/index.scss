@@ -7,6 +7,7 @@
 
 body {
   height: 100%;
+  zoom: 80%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
@@ -56,13 +57,33 @@ div:focus {
   color: #FFFFFF;
   background-color: $violet;
   border-color: $violet;
+
   &:hover{
     background-color: $violet;
     border-color: $violet;
   }
+
   &:focus{
     background-color: $violet;
     border-color: $violet;
+  }
+}
+
+.el-button--secondary {
+  color: #FFFFFF;
+  background-color: $labelBgColor;
+  border-color: $labelBgColor;
+
+  &:hover{
+    color: #FFFFFF;
+    background-color: $labelBgColor;
+    border-color: $labelBgColor;
+  }
+
+  &:focus{
+    color: #FFFFFF;
+    background-color: $labelBgColor;
+    border-color: $labelBgColor;
   }
 }
 

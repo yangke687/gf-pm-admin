@@ -54,7 +54,7 @@ export default class extends Vue {
           margin: 0;
           margin-top: 10px;
           font-size: 14px;
-          color: #909399;
+          color: $darkGrayTextColor;
 
           &:last-child {
             margin-left: 10px;
@@ -63,7 +63,7 @@ export default class extends Vue {
       }
 
       .timestamp {
-        color: #909399;
+        color: $darkGrayTextColor;
       }
     }
   }

@@ -46,7 +46,7 @@ export default class extends Vue {
       }
 
       .timestamp {
-        color: #909399;
+        color: $darkGrayTextColor;
         font-size: 14px;
       }
     }

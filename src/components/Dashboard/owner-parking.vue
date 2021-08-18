@@ -61,7 +61,7 @@ export default class extends Vue {}
 
           .help-block {
             span:first-child {
-              color: #909399;
+              color: $darkGrayTextColor;
             }
             span:last-child {
               color: #FE5F55;
