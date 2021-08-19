@@ -25,6 +25,13 @@
 
     <!-- 主内容 -->
     <el-main class="main-container">
+      <!-- 模块导航 -->
+      <div class="nav-container">
+        <router-link :class="{active: $route.path === '/dashboard'}" to="/dashboard">工作台</router-link>
+        <router-link :class="{active: $route.path === '/call-center'}" to="/call-center">呼叫中心</router-link>
+        <router-link :class="{active: $route.path === '/serv-center'}" to="/serv-center">客服中心</router-link>
+      </div>
+      <!-- 主页面 -->
       <app-main />
     </el-main>
   </el-container>
@@ -84,7 +91,26 @@ export default class extends mixins(ResizeMixin) {
   @include clearfix;
   position: relative;
   height: 100%;
-  width: 100%;
+}
+
+.nav-container {
+  @include flex-horizon;
+
+    > a {
+      display: block;
+      margin-left: 5px;
+      padding: 11px 22px;
+      color: #E6A23C;
+      background: #FFF7EB;
+      font-size: 14px;
+      border-radius: 4px 4px 0px 0px;
+      cursor: pointer;
+
+       &.active, &:hover {
+        color: #fff;
+        background: #FCB140;
+      }
+    }
 }
 
 .drawer-bg {
@@ -98,11 +124,9 @@ export default class extends mixins(ResizeMixin) {
 }
 
 .main-container {
-  padding: 0 70px;
-  min-height: 100%;
+  padding: 17px 0 0 70px;
   transition: margin-left .28s;
   position: relative;
-  background: $dashboardBgColor;
 }
 
 .sidebar-container {

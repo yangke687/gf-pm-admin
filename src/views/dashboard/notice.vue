@@ -14,7 +14,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { DashboardModule } from '@/store/modules/dashboard'
 
 @Component({
-  name: 'Notice',
+  name: 'Notice'
 })
 export default class extends Vue {
   get noticeData() {
