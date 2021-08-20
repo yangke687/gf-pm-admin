@@ -30,6 +30,7 @@
         <router-link :class="{active: $route.path === '/dashboard'}" to="/dashboard">工作台</router-link>
         <router-link :class="{active: $route.path === '/call-center'}" to="/call-center">呼叫中心</router-link>
         <router-link :class="{active: $route.path === '/serv-center'}" to="/serv-center">客服中心</router-link>
+        <router-link :class="{active: $route.path === '/secure-center'}" to="/secure-center">安保中心</router-link>
       </div>
       <!-- 主页面 -->
       <app-main />

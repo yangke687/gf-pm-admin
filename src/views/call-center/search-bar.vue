@@ -2,7 +2,7 @@
   <div class="filter-container">
     <el-row type="flex">
       <!-- 小区 -->
-      <div class="col">
+      <div class="col" v-if="shownColumns.includes('小区')">
         小区:
         <el-select
           v-model="area"
@@ -15,7 +15,7 @@
         </el-select>
       </div>
       <!-- 楼栋 -->
-      <div class="col">
+      <div class="col" v-if="shownColumns.includes('楼栋')">
         楼栋:
         <el-select
           v-model="building"
@@ -28,7 +28,7 @@
         </el-select>
       </div>
       <!-- 房号 -->
-      <div class="col">
+      <div class="col" v-if="shownColumns.includes('业主房号')">
         业主房号:
         <el-input
           v-model="house"
@@ -38,7 +38,7 @@
         />
       </div>
       <!-- 手机 -->
-      <div class="col">
+      <div class="col" v-if="shownColumns.includes('手机号')">
         手机号:
         <el-input
           v-model="house"
@@ -48,7 +48,7 @@
         />
       </div>
       <!--  车牌 -->
-      <div class="col">
+      <div class="col" v-if="shownColumns.includes('车牌号')">
         车牌号:
         <el-input
           v-model="house"
@@ -63,10 +63,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class extends Vue {
+  @Prop({ type: Array, default: () => ['小区', '楼栋', '业主放好', '手机号', '车牌号'] }) shownColumns!: String[];
+
   private area = '' // 小区
   private building = '' // 楼栋
   private house = ''; // 房号

@@ -51,6 +51,16 @@ export default [
         meta: {
           hidden: true
         }
+      },
+      {
+        path: 'secure-center',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/secure-center/index.vue'
+          ),
+        meta: {
+          hidden: true
+        }
       }
     ]
   },
