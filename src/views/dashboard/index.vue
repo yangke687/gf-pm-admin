@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <!-- quick view -->
-    <el-row gutter="30">
+    <el-row :gutter="30">
       <el-col :span="8">
         <div class="block-header">
           <h4>审批待办</h4>
