@@ -5,6 +5,9 @@ import { undo as undoCenterTasks } from '@/mock/dashboard/center-tasks'
 import notices from '@/mock/dashboard/notices'
 import { cash, incomes } from '@/mock/dashboard/charts'
 import owner from '@/mock/dashboard/owner'
+import parkingSpace, {
+  records as parkingRecords
+} from '@/mock/dashboard/parking-space'
 
 export interface Task {
   title: string // 任务标题
@@ -25,6 +28,14 @@ export interface Owner {
   phone: string
   idNum?: string
   dependents?: Owner[]
+}
+
+export interface ParkingSpace {
+  plateNum: string
+  houseNum: string
+  assetType: string
+  ownerType: string
+  carStatus: string
 }
 
 @Module({ dynamic: true, store, name: 'dashboard' })
@@ -54,6 +65,12 @@ class Dashboard extends VuexModule {
 
   // 业主信息
   ownerData: Owner = owner
+
+  // 车位信息
+  parkingData: ParkingSpace[] = parkingSpace
+
+  // 车辆进出记录
+  parkingRecords = parkingRecords
 }
 
 export const DashboardModule = getModule(Dashboard)
