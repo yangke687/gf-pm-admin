@@ -146,7 +146,7 @@ export default class extends Vue {
   }
 
   get records() {
-    return DashboardModule.parkingRecords;
+    return DashboardModule.parkingRecords
   }
 }
 </script>

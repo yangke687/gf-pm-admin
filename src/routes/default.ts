@@ -61,6 +61,16 @@ export default [
         meta: {
           hidden: true
         }
+      },
+      {
+        path: 'engineer-center',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/engineer-center/index.vue'
+          ),
+        meta: {
+          hidden: true
+        }
       }
     ]
   },

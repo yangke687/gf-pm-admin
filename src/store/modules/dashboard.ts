@@ -8,6 +8,7 @@ import owner from '@/mock/dashboard/owner'
 import parkingSpace, {
   records as parkingRecords
 } from '@/mock/dashboard/parking-space'
+import { maintainRecords } from '@/mock/dashboard/device'
 
 export interface Task {
   title: string // 任务标题
@@ -71,6 +72,9 @@ class Dashboard extends VuexModule {
 
   // 车辆进出记录
   parkingRecords = parkingRecords
+
+  // 设备保养记录
+  devMaintainData = maintainRecords
 }
 
 export const DashboardModule = getModule(Dashboard)
