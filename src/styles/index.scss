@@ -52,6 +52,21 @@ div:focus {
   background-size: cover;
 }
 
+.login-bg {
+  background: url('../assets/login-bg.png') no-repeat center center;
+  background-size: cover;
+}
+
+.login-text-logo {
+  width: 498px;
+  height: 67px;
+  background: url('../assets/login-text-logo.png') no-repeat center center;
+  background-size: 100%;
+  position: absolute;
+  top: 400px;
+  left: 145px;
+}
+
 // overwrite element default styles
 .el-button--primary {
   color: #FFFFFF;

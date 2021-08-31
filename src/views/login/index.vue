@@ -1,16 +1,17 @@
 <template>
-  <div class="login-container">
+  <div class="login-container login-bg">
+    <div class="login-text-logo" />
+
     <el-form
       ref="loginForm"
       :model="loginForm"
       :rules="loginRules"
       class="login-form"
-      autocomplete="on"
       label-position="left"
     >
       <div class="title-container">
         <h3 class="title">
-          Login Form
+          登录
         </h3>
       </div>
 
@@ -23,8 +24,7 @@
           v-model="loginForm.username"
           name="username"
           type="text"
-          autocomplete="on"
-          placeholder="username"
+          placeholder="输入账号"
         />
       </el-form-item>
 
@@ -37,9 +37,8 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="password"
+          placeholder="输入密码"
           name="password"
-          autocomplete="on"
           @keyup.enter.native="handleLogin"
         />
         <span
@@ -53,10 +52,10 @@
       <el-button
         :loading="loading"
         type="primary"
-        style="width:100%; margin-bottom:30px;"
+        class="submit-btn"
         @click.native.prevent="handleLogin"
       >
-        Sign in
+        登录
       </el-button>
 
       <div style="position:relative">
@@ -176,40 +175,41 @@ export default class extends Vue {
 <style lang="scss">
 // References: https://www.zhangxinxu.com/wordpress/2018/01/css-caret-color-first-line/
 @supports (-webkit-mask: none) and (not (cater-color: $loginCursorColor)) {
-  .login-container .el-input {
-    input { color: $loginCursorColor; }
-    input::first-line { color: $lightGray; }
-  }
+  // .login-container .el-input {
+  //   input { color: $loginCursorColor; }
+  //   input::first-line { color: $lightGray; }
+  // }
 }
 
 .login-container {
   .el-input {
     display: inline-block;
-    height: 47px;
+    height: 67px;
     width: 85%;
+    border-radius: 15px;
 
     input {
-      height: 47px;
-      background: transparent;
+      height: 67px;
+      width: 100%;
+      background: white;
       border: 0px;
-      border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $lightGray;
-      caret-color: $loginCursorColor;
+      color: #999;
+      font-size: 16px;
       -webkit-appearance: none;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $loginBg inset !important;
-        -webkit-text-fill-color: #fff !important;
-      }
     }
   }
 
   .el-form-item {
+    margin-bottom: 26px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
+  }
+
+  .el-form-item__content {
+    background: white;
   }
 }
 </style>
@@ -219,15 +219,18 @@ export default class extends Vue {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: $loginBg;
+  font-family: Source Han Sans CN;
 
   .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
+    position: absolute;
+    top: 246px;
+    right: 142px;
+    width: 515px;
+    padding: 40px 45px;
     margin: 0 auto;
     overflow: hidden;
+    background: white;
+    border-radius: 20px;
   }
 
   .tips {
@@ -251,25 +254,27 @@ export default class extends Vue {
   }
 
   .title-container {
-    position: relative;
-
     .title {
-      font-size: 26px;
-      color: $lightGray;
-      margin: 0px auto 40px auto;
+      font-size: 30px;
+      color: #333;
+      margin: 0px auto 50px auto;
       text-align: center;
-      font-weight: bold;
     }
   }
 
   .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
     font-size: 16px;
     color: $darkGray;
     cursor: pointer;
     user-select: none;
+  }
+
+  .submit-btn {
+    width:100%;
+    padding: 20px 0px;
+    margin: 30px 0 0;
+    font-size: 16px;
+    border-radius: 6px;
   }
 }
 </style>
