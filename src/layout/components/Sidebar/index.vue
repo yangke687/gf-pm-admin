@@ -46,21 +46,33 @@
               v-if="route.meta.title"
               slot="title"
             >{{ route.meta.title }}</span>
+
             <!-- 向上箭头 -->
             <div class="arrow-up-box" />
+
             <!-- 二级子菜单 -->
-            <template v-for="(subRoute, subIdx) in route.children">
-              <el-menu-item
-                :index="subRoute.path"
-                :key="subIdx"
-              >
-                <span
-                  v-if="subRoute.meta.title"
-                  slot="title"
-                >{{ subRoute.meta.title }}</span>
-              </el-menu-item>
-            </template>
+            <div class="second-lvl-menu">
+              <template v-for="(subRoute, subIdx) in route.children">
+                <el-menu-item
+                  :index="subRoute.path"
+                  :key="subIdx"
+                >
+                  <span
+                    v-if="subRoute.meta.title"
+                    slot="title"
+                  >{{ subRoute.meta.title }}</span>
+                </el-menu-item>
+              </template>
+            </div>
             <!-- end of 二级子菜单  -->
+
+            <!-- 三级子菜单 -->
+            <div class="third-lvl-menu">
+              <div class="third-lvl-menu-container">
+              </div>
+            </div>
+            <!-- end of 三级子菜单 -->
+
           </el-submenu>
           <!-- end of 含有子级的菜单 -->
         </template>
@@ -73,13 +85,13 @@
 import { RouteConfig } from 'vue-router'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
-import SidebarItem from './SidebarItem.vue'
+// import SidebarItem from './SidebarItem.vue'
 import variables from '@/styles/_variables.scss'
 
 @Component({
   name: 'SideBar',
   components: {
-    SidebarItem
+  // SidebarItem
   }
 })
 export default class extends Vue {
@@ -183,17 +195,32 @@ export default class extends Vue {
 .el-sub-menu {
   position: relative;
 
+  .third-lvl-menu {
+    margin: -5px 0;
+    background: white;
+    box-shadow: 0px 3px 6px #E4E7ED;
+    width: 600px;
+    min-height: 300px;
+
+    &-container {
+      width: 800px;
+      height: 100%;
+    }
+  }
+
   .el-menu--popup-bottom-start{
     margin-top: 0;
   }
 
   .el-menu {
+    display: flex;
     background-color: $subMenuBg !important;
     min-width: 115px;
 
     .el-menu-item {
       background-color: $subMenuBg !important;
       text-align: center;
+      padding: 0 20px;
 
       &:hover,&.is-active {
         color: $subMenuActiveText !important;

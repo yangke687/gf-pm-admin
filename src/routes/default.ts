@@ -79,7 +79,7 @@ export default [
     path: '/pm',
     component: Layout,
     meta: {
-      title: '云物业'
+      title: '云物管'
     },
     children: [
       {
@@ -90,7 +90,39 @@ export default [
           ),
         meta: {
           title: '楼盘管理'
-        }
+        },
+        children: [
+          {
+            path: '/pm/estate/info',
+            component: () =>
+              import(
+                /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
+              ),
+            meta: {
+              title: '楼盘信息管理'
+            }
+          },
+          {
+            path: '/pm/estate/perm',
+            component: () =>
+              import(
+                /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
+              ),
+            meta: {
+              title: '楼盘权限管理'
+            }
+          },
+          {
+            path: '/pm/estate/doc',
+            component: () =>
+              import(
+                /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
+              ),
+            meta: {
+              title: '楼盘文档管理'
+            }
+          }
+        ]
       },
       {
         path: '/pm/takeover',
