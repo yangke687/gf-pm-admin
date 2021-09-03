@@ -67,6 +67,27 @@ div:focus {
   left: 145px;
 }
 
+// icons container div
+.icon-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-building {
+  background: url('../assets/icons/building.png') no-repeat center center;
+  background-size: 100%;
+}
+
+.icon-paper-lock {
+  background: url('../assets/icons/paper-lock.png') no-repeat center center;
+  background-size: 100%;
+}
+
+.icon-paper {
+  background: url('../assets/icons/paper.png') no-repeat center center;
+  background-size: 100%;
+}
+
 // overwrite element default styles
 .el-button--primary {
   color: #FFFFFF;

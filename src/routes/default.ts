@@ -99,7 +99,8 @@ export default [
                 /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
               ),
             meta: {
-              title: '楼盘信息管理'
+              title: '楼盘信息管理',
+              icon: 'icon-building'
             }
           },
           {
@@ -109,7 +110,8 @@ export default [
                 /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
               ),
             meta: {
-              title: '楼盘权限管理'
+              title: '楼盘权限管理',
+              icon: 'icon-paper-lock'
             }
           },
           {
@@ -119,7 +121,8 @@ export default [
                 /* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'
               ),
             meta: {
-              title: '楼盘文档管理'
+              title: '楼盘文档管理',
+              icon: 'icon-paper'
             }
           }
         ]

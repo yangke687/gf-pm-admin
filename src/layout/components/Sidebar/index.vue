@@ -45,6 +45,7 @@
             <span
               v-if="route.meta.title"
               slot="title"
+              @mouseover="resetThirdLvlMenuItems"
             >{{ route.meta.title }}</span>
 
             <!-- 向上箭头 -->
@@ -60,6 +61,7 @@
                   <span
                     v-if="subRoute.meta.title"
                     slot="title"
+                    @mouseover="setThirdLvlMenuItems(subRoute)"
                   >{{ subRoute.meta.title }}</span>
                 </el-menu-item>
               </template>
@@ -67,8 +69,16 @@
             <!-- end of 二级子菜单  -->
 
             <!-- 三级子菜单 -->
-            <div class="third-lvl-menu">
+            <div class="third-lvl-menu" v-if="thirdLvlMenuItems.length">
               <div class="third-lvl-menu-container">
+                <div
+                  class="third-lvl-menu-entry"
+                  v-for="(route, idx) in thirdLvlMenuItems"
+                  :key="idx"
+                >
+                  <i class="icon-24" :class="route.meta.icon" />
+                  <span>{{ route.meta.title }}</span>
+                </div>
               </div>
             </div>
             <!-- end of 三级子菜单 -->
@@ -96,6 +106,8 @@ import variables from '@/styles/_variables.scss'
 })
 export default class extends Vue {
   @Prop({ default: '' }) private basePath!: string
+
+  private thirdLvlMenuItems = [];
 
   get sidebar() {
     return AppModule.sidebar
@@ -148,6 +160,14 @@ export default class extends Vue {
       }
     }
     return { ...route, path: '' }
+  }
+
+  private setThirdLvlMenuItems(subRoute: any) {
+    this.thirdLvlMenuItems = subRoute.children || []
+  }
+
+  private resetThirdLvlMenuItems() {
+    this.thirdLvlMenuItems = []
   }
 }
 </script>
@@ -205,6 +225,22 @@ export default class extends Vue {
     &-container {
       width: 800px;
       height: 100%;
+      padding: 28px 25px;
+    }
+
+    &-entry {
+      @include flex-align-items-center;
+      display: inline-flex;
+      margin-right: 20px;
+      padding: 10px 15px;
+      border: 1px solid #E4E7ED;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+
+      > i {
+        margin-right: 10px;
+      }
     }
   }
 
@@ -216,11 +252,12 @@ export default class extends Vue {
     display: flex;
     background-color: $subMenuBg !important;
     min-width: 115px;
+    justify-content: center;
 
     .el-menu-item {
       background-color: $subMenuBg !important;
       text-align: center;
-      padding: 0 20px;
+      padding: 0 30px;
 
       &:hover,&.is-active {
         color: $subMenuActiveText !important;
