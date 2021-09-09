@@ -5,7 +5,10 @@
       <el-tab-pane label="业主信息" name="first" class="owner-tab">
         <div class="owner">
           <el-row type="flex">
-            <el-col class="col" :span="3">业主: {{ owner.name }}</el-col>
+            <el-col class="col" :span="3">
+              业主: {{ owner.name }}
+              <i class="el-icon-edit" @click="openOwnerDialog"></i>
+            </el-col>
             <el-col class="col" :span="3">性别: {{ owner.gender }}</el-col>
           </el-row>
           <el-row type="flex">
@@ -60,6 +63,72 @@
         <el-empty description="暂无数据" :image-size="64"></el-empty>
       </el-tab-pane>
     </el-tabs>
+    <!-- 编辑业主信息弹窗 -->
+    <el-dialog
+      title="编辑"
+      :visible="ownerDialogShown"
+      class="owner-form"
+      @close="closeOwnerDialog"
+    >
+      <el-row>
+        <!-- 第一列 -->
+        <el-col :span="12">
+          <el-row class="form-row">
+            <label>业主姓名</label>
+            <el-input style="width: 250px;" :value="owner.name" />
+          </el-row>
+          <el-row class="form-row">
+            <label>证件类型</label>
+            <el-radio-group :value="owner.idType">
+              <el-radio label="身份证">身份证</el-radio>
+              <el-radio label="护照">护照</el-radio>
+            </el-radio-group>
+          </el-row>
+          <el-row class="form-row">
+            <label>证件号码</label>
+            <el-input style="width: 250px;" :value="owner.idNum" />
+          </el-row>
+          <el-row class="form-row">
+            <label>性别</label>
+            <el-radio-group :value="owner.gender">
+              <el-radio label="男">男</el-radio>
+              <el-radio label="女">女</el-radio>
+            </el-radio-group>
+          </el-row>
+          <el-row class="form-row">
+            <label>名族</label>
+            <el-input style="width: 250px;" :value="owner.nation" />
+          </el-row>
+        </el-col>
+        <!-- 第二列 -->
+        <el-col :span="12">
+          <el-row class="form-row">
+            <label>户籍地址</label>
+            <el-input style="width: 250px;" />
+          </el-row>
+          <el-row class="form-row">
+            <label>工作单位</label>
+            <el-input style="width: 250px;" />
+          </el-row>
+          <el-row class="form-row">
+            <label>紧急联系人</label>
+            <el-input style="width: 250px;" />
+          </el-row>
+          <el-row class="form-row">
+            <label>紧急联系方式</label>
+            <el-input style="width: 250px;" />
+          </el-row>
+          <el-row class="form-row">
+            <label>备注</label>
+            <el-input style="width: 250px;" type="textarea" />
+          </el-row>
+        </el-col>
+      </el-row>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="closeOwnerDialog">取 消</el-button>
+        <el-button type="primary">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -70,6 +139,7 @@ import { Owner, DashboardModule } from '@/store/modules/dashboard'
 @Component
 export default class extends Vue {
   private activeTab= 'first'
+  private ownerDialogShown = false
 
   private bodyCellStyle = {
     'border-width': 0
@@ -83,6 +153,14 @@ export default class extends Vue {
 
   get owner(): Owner {
     return DashboardModule.ownerData
+  }
+
+  private openOwnerDialog() {
+    this.ownerDialogShown = true
+  }
+
+  private closeOwnerDialog() {
+    this.ownerDialogShown = false
   }
 }
 </script>
@@ -102,6 +180,29 @@ export default class extends Vue {
 
           .el-row {
             padding: 10px 0;
+          }
+
+          i {
+            margin-left: 5px;
+            font-size: 14px;
+            font-weight: bold;
+            color: $iconBlueColor;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .owner-form {
+        .form-row {
+          display: flex;
+          margin-bottom: 30px;
+          align-items: center;
+
+          > * {
+            &:first-child {
+              margin-right: 35px;
+              width: 90px;
+            }
           }
         }
       }

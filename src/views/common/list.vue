@@ -191,7 +191,7 @@ export default class extends Vue {
     const data: any[] = cloneDeep(list.data)
     return data.map(row => {
       for (const colName in row) {
-        const attr = find(list.attrs, (attr: TableColumn) => attr.value === colName);
+        const attr = find(list.attrs, (attr: TableColumn) => attr.value === colName)
         if (attr) {
           if (attr.type === 'radio') {
             const option = find(attr.options, (opt: TableColumnOpt) => opt.value === row[colName])
