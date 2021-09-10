@@ -25,5 +25,21 @@ module.exports = {
       args[0].title = name
       return args
     })
+  },
+  devServer: {
+    open: true,
+    overlay: {
+      warnings: false,
+      errors: true
+    },
+    proxy: {
+      [process.env.VUE_APP_BASE_API]: {
+        target: 'http://v4.yngfwy.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
   }
 }
