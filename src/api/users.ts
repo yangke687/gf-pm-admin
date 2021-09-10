@@ -7,15 +7,27 @@ export const getUserInfo = (data: any) =>
     data
   })
 
-export const login = (data: any) =>
+export const login = ({
+  username,
+  password,
+  companyCode
+}: {
+  username: string
+  password: string
+  companyCode: string
+}) =>
   request({
-    url: '/users/login',
+    url: '/api/admin/login',
     method: 'post',
-    data
+    data: {
+      un: username,
+      pwd: password,
+      companyCode
+    }
   })
 
 export const logout = () =>
   request({
-    url: '/users/logout',
+    url: '/admin/logout',
     method: 'post'
   })

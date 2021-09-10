@@ -49,6 +49,19 @@
         </span>
       </el-form-item>
 
+      <el-form-item prop="companyCode">
+        <span class="svg-container">
+          <svg-icon name="table" />
+        </span>
+        <el-input
+          ref="companyCode"
+          v-model="loginForm.companyCode"
+          name="companyCode"
+          type="text"
+          placeholder="输入公司编码"
+        />
+      </el-form-item>
+
       <el-button
         :loading="loading"
         type="primary"
@@ -97,8 +110,9 @@ export default class extends Vue {
   }
 
   private loginForm = {
-    username: 'admin',
-    password: '111111'
+    username: '15912587944',
+    password: '123456',
+    companyCode: '0001'
   }
 
   private loginRules = {
@@ -223,7 +237,7 @@ export default class extends Vue {
 
   .login-form {
     position: absolute;
-    top: 246px;
+    top: 220px;
     right: 142px;
     width: 515px;
     padding: 40px 45px;
