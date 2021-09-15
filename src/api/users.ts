@@ -2,8 +2,8 @@ import request from '@/utils/request'
 
 export const getUserInfo = (data: any) =>
   request({
-    url: '/users/info',
-    method: 'post',
+    url: '/api/admin/getUserInfo',
+    method: 'get',
     data
   })
 

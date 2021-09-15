@@ -98,6 +98,11 @@ class User extends VuexModule implements IUserState {
     if (!data) {
       throw Error('Verification failed, please Login again.')
     }
+    // 模拟用户信息
+    data.user.roles = ['editor']
+    data.user.avatar =
+      'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'
+    data.user.introduction = '管理员'
     const { roles, name, avatar, introduction } = data.user
     // roles must be a non-empty array
     if (!roles || roles.length <= 0) {
@@ -114,7 +119,7 @@ class User extends VuexModule implements IUserState {
     if (this.token === '') {
       throw Error('LogOut: token is undefined!')
     }
-    await logout()
+    // await logout()
     removeToken()
     this.SET_TOKEN('')
     this.SET_ROLES([])
