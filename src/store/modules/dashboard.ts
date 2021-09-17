@@ -9,6 +9,7 @@ import parkingSpace, {
   records as parkingRecords
 } from '@/mock/dashboard/parking-space'
 import { maintainRecords } from '@/mock/dashboard/device'
+import { areaFees, monthlyFees } from '@/mock/dashboard/pm-fees'
 
 export interface Task {
   title: string // 任务标题
@@ -37,6 +38,36 @@ export interface ParkingSpace {
   assetType: string
   ownerType: string
   carStatus: string
+}
+
+// 基于面积计算的收费项: 二次加压费用, 物业费, 车位费
+export interface IAreaFee {
+  name: string
+  unitPrice: number
+  unit: string
+  area: number
+  shouldPayAmount: number
+  reducedAmount: number
+  discount: string
+  discountAmount: number
+  period: number
+  duration: string
+  shouldRecvAmount: number
+  remark: string
+}
+
+// 基于月份计算的收费项: 电费, 水费
+export interface IMonthlyFee {
+  name: string
+  unitPrice: number
+  unit: string
+  month: string
+  lastMonthValue: number
+  thisMonthValue: number
+  deltaValue: number
+  shouldPayAmount: number
+  shouldRecvAmount: number
+  remark: string
 }
 
 @Module({ dynamic: true, store, name: 'dashboard' })
@@ -75,6 +106,10 @@ class Dashboard extends VuexModule {
 
   // 设备保养记录
   devMaintainData = maintainRecords
+
+  // 收费信息
+  areaFeesData: IAreaFee[] = areaFees
+  monthlyFeedsData: IMonthlyFee[] = monthlyFees
 }
 
 export const DashboardModule = getModule(Dashboard)

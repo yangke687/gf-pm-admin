@@ -4,6 +4,7 @@
     :visible="visible"
     class="charge-form"
     @close="closeFunc"
+    width="1110px"
   >
     <!-- 收费信息 -->
     <el-row>
@@ -29,6 +30,101 @@
     <!-- 合计缴费 -->
     <el-row>
       <h2>合计缴费</h2>
+      <div class="block">
+        <el-row class='form-row dahsed-bottom-border'>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>单价</th>
+                <th>面积</th>
+                <th>应缴金额</th>
+                <th>减免金额</th>
+                <th>折扣</th>
+                <th>折扣金额</th>
+                <th>数量</th>
+                <th>起止日期</th>
+                <th>应收金额</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row,idx) in areaFees" :key="idx">
+                <td>{{ row.name }}</td>
+                <td>{{ row.unitPrice }}</td>
+                <td>{{ row.area }}</td>
+                <td>{{ row.shouldPayAmount }}</td>
+                <td>{{ row.reducedAmount }}</td>
+                <td>{{ row.discount }}</td>
+                <td>{{ row.discountAmount }}</td>
+                <td>
+                  <input v-model="row.period" style="width: 40px;" maxlength="2" />
+                </td>
+                <td>{{ row.duration }}</td>
+                <td>{{ row.shouldRecvAmount }}</td>
+                <td>
+                  <input v-model="row.remark" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </el-row>
+        <el-row class='form-row dahsed-bottom-border'>
+          <table>
+            <thead>
+              <tr>
+                <th width="100"></th>
+                <th>单价</th>
+                <th>单位</th>
+                <th>月份</th>
+                <th>上月数</th>
+                <th>本月数</th>
+                <th>使用数量</th>
+                <th>应缴金额</th>
+                <th>应收金额</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row,idx) in monthlyFees" :key="idx">
+                <td>{{ row.name }}</td>
+                <td>{{ row.unitPrice }}</td>
+                <td>{{ row.unit }}</td>
+                <td>{{ row.month }}</td>
+                <td>{{ row.lastMonthValue }}</td>
+                <td>{{ row.thisMonthValue }}</td>
+                <td>{{ row.deltaValue }}</td>
+                <td>{{ row.shouldPayAmount }}</td>
+                <td>{{ row.shouldRecvAmount }}</td>
+                <td>
+                  <input v-model="row.remark" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </el-row>
+        <!-- 合计 -->
+        <el-rw :gutter="20">
+          <el-col :span="4">
+            应缴金额: 3240.11
+          </el-col>
+          <el-col :span="4">
+            减免金额: 0
+          </el-col>
+          <el-col :span="4">
+            折扣金额: 0
+          </el-col>
+          <el-col :span="4">
+            预存金额: 0
+          </el-col>
+          <el-col :span="4">
+            预存折扣: 0
+          </el-col>
+          <el-col :span="4">
+            应收金额: <font color="#EB2929"><b>3240.11</b></font>
+          </el-col>
+        </el-rw>
+      </div>
     </el-row>
     <!-- 支付方式 -->
     <el-row>
@@ -79,6 +175,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
+import { IAreaFee, IMonthlyFee, DashboardModule } from '@/store/modules/dashboard'
 
 @Component
 export default class extends Vue {
@@ -92,11 +189,16 @@ export default class extends Vue {
   private closeFunc(): void {
     this.$emit('onClose')
   }
+
+  get areaFees(): IAreaFee[] {
+    return DashboardModule.areaFeesData
+  }
+
+  get monthlyFees(): IMonthlyFee[] {
+    return DashboardModule.monthlyFeedsData
+  }
 }
 </script>
-
-<style>
-</style>
 
 <style lang="scss" scoped>
   h2 {
@@ -159,5 +261,19 @@ export default class extends Vue {
         }
       }
     }
+  }
+
+  table {
+    tr {
+      td, th {
+        padding: 5px 10px;
+        text-align: left;
+      }
+    }
+  }
+
+  .dahsed-bottom-border {
+    padding-bottom: 22px;
+    border-bottom: dashed 1px #ccc;
   }
 </style>
