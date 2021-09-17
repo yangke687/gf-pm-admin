@@ -17,12 +17,14 @@
               <el-col :span="8" class="fee">
                 <h3>2022-05-27</h3>
                 <h6>物业费到期时间</h6>
-                <el-button type="primary">去收费</el-button>
+                <el-button type="primary" @click="openModalCharge">
+                  去收费
+                </el-button>
                 <h5>押金退还时间: 2022-07-01</h5>
               </el-col>
               <!-- 报工单 -->
               <el-col :span="8">
-                <el-button type="secondary">去收费</el-button>
+                <el-button type="secondary">报工单</el-button>
               </el-col>
               <!-- 车牌 -->
               <el-col :span="8" class="number-plate">
@@ -42,6 +44,13 @@
 
     <!-- 业主信息 -->
     <Owner />
+
+    <!-- 收费弹窗 -->
+    <ModalCharge
+      :visible="modalChargeShown"
+      @onClose="closeModalCharnge"
+    />
+    <!-- 报工单弹窗 -->
   </div>
 </template>
 
@@ -52,6 +61,7 @@ import Owner from '@/views/call-center/owner-summaries.vue'
 import House from '@/components/Dashboard/owner-house.vue'
 import Parking from '@/components/Dashboard/owner-parking.vue'
 import NumberPlate from '@/components/Dashboard/number-plate.vue'
+import ModalCharge from './modal-charge.vue'
 
 @Component({
   name: 'Call-Center',
@@ -60,10 +70,21 @@ import NumberPlate from '@/components/Dashboard/number-plate.vue'
     Owner,
     House,
     Parking,
-    NumberPlate
+    NumberPlate,
+    ModalCharge,
   }
 })
-export default class extends Vue {}
+export default class extends Vue {
+  private modalChargeShown = false
+
+  private openModalCharge(): void {
+    this.modalChargeShown = true
+  }
+
+  private closeModalCharnge(): void {
+    this.modalChargeShown = false
+  }
+}
 </script>
 
 <style lang="scss" scoped>

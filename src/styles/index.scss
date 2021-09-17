@@ -105,6 +105,22 @@ div:focus {
   }
 }
 
+.el-button--success {
+  color: #FFFFFF;
+  background-color: $darkGreen;
+  border-color: $darkGreen;
+
+  &:hover{
+    background-color: $darkGreen;
+    border-color: $darkGreen;
+  }
+
+  &:focus{
+    background-color: $darkGreen;
+    border-color: $darkGreen;
+  }
+}
+
 .el-button--secondary {
   color: #FFFFFF;
   background-color: $labelBgColor;
@@ -129,8 +145,13 @@ div:focus {
 
 .el-dialog__header {
   padding: 15px;
+  border-bottom: 1px solid #E4E7ED;
 }
 
 .el-dialog__title {
   font-size: 16px;
+}
+
+.el-dialog__body {
+  padding: 20px 15px;
 }
