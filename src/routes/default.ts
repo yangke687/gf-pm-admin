@@ -1,4 +1,5 @@
 import Layout from '@/layout/index.vue'
+import settings from './modules/settings'
 
 export default [
   // 通用
@@ -273,6 +274,6 @@ export default [
     meta: {
       title: '系统设置'
     },
-    children: []
+    children: settings
   }
 ]

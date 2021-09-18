@@ -76,8 +76,10 @@
                   v-for="(route, idx) in thirdLvlMenuItems"
                   :key="idx"
                 >
-                  <i class="icon-24" :class="route.meta.icon" />
-                  <span>{{ route.meta.title }}</span>
+                  <router-link :to="route.path">
+                    <i class="icon-24" :class="route.meta.icon" />
+                    <span>{{ route.meta.title }}</span>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -95,6 +97,7 @@
 import { RouteConfig } from 'vue-router'
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/modules/app'
+import SidebarItemLink from './SidebarItemLink.vue'
 // import SidebarItem from './SidebarItem.vue'
 import variables from '@/styles/_variables.scss'
 
@@ -102,6 +105,7 @@ import variables from '@/styles/_variables.scss'
   name: 'SideBar',
   components: {
   // SidebarItem
+    SidebarItemLink
   }
 })
 export default class extends Vue {
@@ -223,23 +227,26 @@ export default class extends Vue {
     min-height: 300px;
 
     &-container {
+      display: flex;
       width: 800px;
       height: 100%;
       padding: 28px 25px;
     }
 
     &-entry {
-      @include flex-align-items-center;
-      display: inline-flex;
-      margin-right: 20px;
-      padding: 10px 15px;
-      border: 1px solid #E4E7ED;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
+      a {
+        @include flex-align-items-center;
+        display: inline-flex;
+        margin-right: 20px;
+        padding: 10px 15px;
+        border: 1px solid #E4E7ED;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
 
-      > i {
-        margin-right: 10px;
+        > i {
+          margin-right: 10px;
+        }
       }
     }
   }

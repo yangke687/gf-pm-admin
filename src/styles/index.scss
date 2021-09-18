@@ -69,6 +69,7 @@ div:focus {
 
 // icons container div
 .icon-24 {
+  display: inline-block;
   width: 24px;
   height: 24px;
 }
@@ -85,6 +86,11 @@ div:focus {
 
 .icon-paper {
   background: url('../assets/icons/paper.png') no-repeat center center;
+  background-size: 100%;
+}
+
+.icon-menu {
+  background: url('../assets/icons/icon-menu.png') no-repeat center center;
   background-size: 100%;
 }
 

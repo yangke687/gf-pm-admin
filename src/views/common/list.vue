@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="list-container">
     <!-- filters -->
     <div class="filter-container">
       <div class="fragment" v-for="(col, idx) in attrs" :key="idx">
@@ -221,7 +221,7 @@ export default class extends Vue {
   }
 
   .filter-container {
-    padding: 20px 0;
+    margin-bottom: 20px;
 
     .filter-item {
       margin-right: 10px;
