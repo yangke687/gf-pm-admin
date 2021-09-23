@@ -24,5 +24,6 @@ export default class extends Vue {}
   overflow: hidden;
   background: $dashboardBgColor;
   height: calc(100% - 40px);
+  overflow: scroll;
 }
 </style>

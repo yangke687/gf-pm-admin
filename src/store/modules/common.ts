@@ -6,6 +6,7 @@ import {
   getModule
 } from 'vuex-module-decorators'
 import store from '@/store'
+import { getList } from '@/api/common'
 import { devices, patrols, repairs } from '@/mock/device'
 
 export interface TableColumnOpt {
@@ -30,8 +31,12 @@ interface MetaData {
   pagination?: PaginationData
 }
 
+export interface ITableDataItem {
+  id: number | string
+}
+
 export interface TableData {
-  data: any[]
+  data: ITableDataItem[]
   attrs: TableColumn[]
   meta: MetaData
 }
@@ -86,18 +91,27 @@ export class Common extends VuexModule {
 
   @Mutation
   fetchListSuccess(list: TableData) {
-    this.list = list
+    this.list = {
+      ...list,
+      data: list.data.map(item => ({
+        ...item,
+        hasChildren: true
+      }))
+    }
   }
 
   @Action({ commit: 'fetchListSuccess' })
   public async fetchList({
     path,
-    page
+    page,
+    ...props
   }: {
     path: string
     page: number
-  }): Promise<TableData> {
-    return await request(path, page)
+    props?: any
+  }): Promise<any> {
+    const { data } = await getList(path, { currentPage: page, ...props })
+    return data
   }
 
   // 单条数据

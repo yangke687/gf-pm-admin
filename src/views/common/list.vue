@@ -48,12 +48,16 @@
     <el-table v-loading="listLoading"
       :data="renderListData(list)"
       style="width: 100%"
+      row-key="id"
       border
       fit
       highlight-current-row
+      lazy
+      :load="load"
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
       @sort-change="sortChange"
     >
-      <el-table-column
+      <!-- <el-table-column
         v-if="list && list.data.length"
         align="left"
         label="序号"
@@ -62,7 +66,7 @@
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         v-for="(attr, idx) in list.attrs"
         :sortable="attr.sortable"
@@ -102,12 +106,15 @@
 import { find, cloneDeep } from 'lodash'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
-import { commonMod, TableData, TableColumn, TableColumnOpt } from '@/store/modules/common'
+import { commonMod, TableData, ITableDataItem, TableColumn, TableColumnOpt } from '@/store/modules/common'
+import { getList } from '@/api/common'
+import toUrl from './pathToUrl'
 
 @Component
 export default class extends Vue {
   private listLoading = false
-  private path = '';
+  private path = ''; // 当前路由
+  private url = ''; // api地址
   private filters = {};
 
   @Watch('$route', {
@@ -117,9 +124,12 @@ export default class extends Vue {
   onRouteChange(to: Route, from: Route) {
     const fromPath = from?.path
     const toPath = to?.path
+    const url = toUrl(toPath)
+
     if (toPath && toPath !== fromPath) {
       this.path = toPath
-      this.getList(toPath, 1)
+      this.url = url
+      this.getList(url, 1)
     }
   }
 
@@ -135,15 +145,23 @@ export default class extends Vue {
     return commonMod.list.attrs.filter(attr => attr.filterable)
   }
 
-  private async getList(path: string, page: number) {
+  // 加载列表
+  private async getList(url: string, page: number) {
     this.listLoading = true
-    await commonMod.fetchList({ path, page })
+    await commonMod.fetchList({ path: url, page })
     this.listLoading = false
+  }
+
+  // 加载树形子级数据
+  private async load(tree: ITableDataItem, treeNode, resolve: Function) {
+    const { id } = tree
+    const { data: { data } } = await getList(this.url, {page: 1, parentId: id })
+    resolve(data)
   }
 
   private async onPageChange(page: number) {
     this.listLoading = true
-    await commonMod.fetchList({ path: this.path, page })
+    await commonMod.fetchList(this.url, page)
     this.listLoading = false
   }
 
