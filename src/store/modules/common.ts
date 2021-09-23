@@ -50,36 +50,37 @@ const timeout = (ms: number): Function => {
     )
 }
 
-const request = (entity: string, page: number): Promise<TableData> => {
-  const data: TableData = (() => {
-    switch (entity) {
-      case '/device/list':
-        return devices
-      case '/device/maintain/patrol/list':
-        return patrols
-      case '/device/maintain/repair/list':
-        return repairs
-      default:
-        return {
-          data: [],
-          attrs: [],
-          meta: {}
-        }
-    }
-  })()
+// const request = (entity: string, page: number): Promise<TableData> => {
+//   const data: TableData = (() => {
+//     switch (entity) {
+//       case '/device/list':
+//         return devices
+//       case '/device/maintain/patrol/list':
+//         return patrols
+//       case '/device/maintain/repair/list':
+//         return repairs
+//       default:
+//         return {
+//           data: [],
+//           attrs: [],
+//           meta: {}
+//         }
+//     }
+//   })()
 
-  let dataItems = data.data
+//   let dataItems = data.data
 
-  // 分页
-  if (data && data.meta && data.meta.pagination) {
-    const pageSize = data.meta.pagination.pageSize
-    const startPos = (page - 1) * pageSize
-    const endPos = page * pageSize
-    dataItems = data.data.slice(startPos, endPos)
-  }
+//   // 分页
+//   if (data && data.meta && data.meta.pagination) {
+//     const pageSize = data.meta.pagination.pageSize
+//     const startPos = (page - 1) * pageSize
+//     const endPos = page * pageSize
+//     dataItems = data.data.slice(startPos, endPos)
+//   }
 
-  return timeout(1000)({ ...data, data: dataItems })
-}
+//   return timeout(1000)({ ...data, data: dataItems })
+// }
+
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
   // 列表数据

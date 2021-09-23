@@ -153,7 +153,7 @@ export default class extends Vue {
   }
 
   // 加载树形子级数据
-  private async load(tree: ITableDataItem, treeNode, resolve: Function) {
+  private async load(tree: ITableDataItem, treeNode: object, resolve: Function) {
     const { id } = tree
     const { data: { data } } = await getList(this.url, {page: 1, parentId: id })
     resolve(data)
@@ -161,7 +161,7 @@ export default class extends Vue {
 
   private async onPageChange(page: number) {
     this.listLoading = true
-    await commonMod.fetchList(this.url, page)
+    await commonMod.fetchList({ path: this.url, page })
     this.listLoading = false
   }
 
@@ -199,7 +199,7 @@ export default class extends Vue {
 
   private handleEdit(single: { id: number }) {
     // 设置单条记录
-    const data: any[] = find(this.list.data, (row: { id: number }) => row.id === single.id)
+    const data: any = find(this.list.data, (row: { id: number }) => row.id === single.id)
     commonMod.setSingle(data)
     // 路由跳转
     this.gotoSingleForm()
