@@ -1,10 +1,24 @@
-import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
+import { findIndex } from 'lodash'
+import {
+  VuexModule,
+  Module,
+  Mutation,
+  Action,
+  getModule
+} from 'vuex-module-decorators'
 import { getSidebarStatus, setSidebarStatus } from '@/utils/cookies'
 import store from '@/store'
+import router from '@/router'
 
 export enum DeviceType {
   Mobile,
-  Desktop,
+  Desktop
+}
+
+export interface INavTab {
+  to: string
+  name: string
+  closeable: boolean
 }
 
 export interface IAppState {
@@ -13,6 +27,7 @@ export interface IAppState {
     opened: boolean
     withoutAnimation: boolean
   }
+  navTabs: INavTab[]
 }
 
 @Module({ dynamic: true, store, name: 'app' })
@@ -23,6 +38,38 @@ class App extends VuexModule implements IAppState {
   }
 
   public device = DeviceType.Desktop
+
+  public navTabs = [
+    {
+      to: '/dashboard',
+      name: '工作台',
+      closeable: false
+    },
+
+    {
+      to: '/call-center',
+      name: '呼叫中心',
+      closeable: false
+    },
+
+    {
+      to: '/serv-center',
+      name: '客服中心',
+      closeable: false
+    },
+
+    {
+      to: '/secure-center',
+      name: '安保中心',
+      closeable: false
+    },
+
+    {
+      to: '/engineer-center',
+      name: '工程中心',
+      closeable: false
+    }
+  ]
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
@@ -60,6 +107,18 @@ class App extends VuexModule implements IAppState {
   @Action
   public ToggleDevice(device: DeviceType) {
     this.TOGGLE_DEVICE(device)
+  }
+
+  @Mutation
+  public ADD_NAV_TAB(tab: INavTab) {
+    this.navTabs.push(tab)
+  }
+
+  @Mutation
+  public REMOVE_NAV_TAB(name: string) {
+    const idx = findIndex(this.navTabs, t => t.name === name)
+    this.navTabs.splice(idx, 1)
+    router.back()
   }
 }
 

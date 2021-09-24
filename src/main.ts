@@ -25,7 +25,7 @@ Vue.use(SvgIcon, {
 
 Vue.config.productionTip = false
 
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 从后端获取菜单权限
   const routes = await permissionModule.generateRoutes()
   console.log('main routes', routes)

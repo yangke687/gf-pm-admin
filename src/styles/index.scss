@@ -74,6 +74,12 @@ div:focus {
   height: 24px;
 }
 
+.icon-12 {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+
 .icon-building {
   background: url('../assets/icons/building.png') no-repeat center center;
   background-size: 100%;
@@ -91,6 +97,11 @@ div:focus {
 
 .icon-menu {
   background: url('../assets/icons/icon-menu.png') no-repeat center center;
+  background-size: 100%;
+}
+
+.icon-close {
+  background: url('../assets/icons/icon-close.png') no-repeat center center;
   background-size: 100%;
 }
 

@@ -155,7 +155,7 @@ export default class extends Vue {
   // 加载树形子级数据
   private async load(tree: ITableDataItem, treeNode: object, resolve: Function) {
     const { id } = tree
-    const { data: { data } } = await getList(this.url, {page: 1, parentId: id })
+    const { data: { data } } = await getList(this.url, { page: 1, parentId: id })
     resolve(data)
   }
 

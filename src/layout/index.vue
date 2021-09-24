@@ -27,11 +27,14 @@
     <el-main class="main-container">
       <!-- 模块导航 -->
       <div class="nav-container">
-        <router-link :class="{active: $route.path === '/dashboard'}" to="/dashboard">工作台</router-link>
-        <router-link :class="{active: $route.path === '/call-center'}" to="/call-center">呼叫中心</router-link>
-        <router-link :class="{active: $route.path === '/serv-center'}" to="/serv-center">客服中心</router-link>
-        <router-link :class="{active: $route.path === '/secure-center'}" to="/secure-center">安保中心</router-link>
-        <router-link :class="{active: $route.path === '/engineer-center'}" to="/engineer-center">工程中心</router-link>
+        <router-link v-for="(tab, idx) in navTabs"
+          :class="{active: $route.path === tab.to}"
+          :to="tab.to"
+          :key="idx"
+        >
+          {{tab.name}}
+          <span class="icon-close icon-12 icon" v-if="tab.closeable" @click="removeNavTab(tab.name)" />
+        </router-link>
       </div>
       <!-- 主页面 -->
       <app-main />
@@ -40,7 +43,9 @@
 </template>
 
 <script lang="ts">
-import { Component } from 'vue-property-decorator'
+import { find } from 'lodash'
+import { Component, Watch } from 'vue-property-decorator'
+import { Route } from 'vue-router'
 import { mixins } from 'vue-class-component'
 // import { DeviceType, AppModule } from '@/store/modules/app'
 import { AppModule } from '@/store/modules/app'
@@ -56,6 +61,28 @@ import ResizeMixin from './mixin/resize'
   }
 })
 export default class extends mixins(ResizeMixin) {
+  @Watch('$route', {
+    immediate: true,
+    deep: true
+  })
+  // @ts-expect-error: ResizeMixin 已经有相同定义的 Watch
+  onRouteChange(to: Route) {
+    // 打开新的导航Tab
+    const { meta: { title }, path } = to
+
+    if (!find(this.navTabs, t => t.to === path)) {
+      AppModule.ADD_NAV_TAB({
+        to: path,
+        name: title,
+        closeable: true
+      })
+    }
+  }
+
+  get navTabs() {
+    return AppModule.navTabs
+  }
+
   get classObj() {
     return {
       // hideSidebar: !this.sidebar.opened,
@@ -67,6 +94,10 @@ export default class extends mixins(ResizeMixin) {
 
   private handleClickOutside() {
     AppModule.CloseSideBar(false)
+  }
+
+  private removeNavTab(tabName: string) {
+    AppModule.REMOVE_NAV_TAB(tabName)
   }
 }
 </script>
@@ -99,9 +130,9 @@ export default class extends mixins(ResizeMixin) {
   @include flex-horizon;
 
     > a {
-      display: block;
+      @include flex-align-items-center;
       margin-left: 5px;
-      padding: 11px 22px;
+      padding: 11px 12px;
       color: #E6A23C;
       background: #FFF7EB;
       font-size: 14px;
@@ -111,6 +142,10 @@ export default class extends mixins(ResizeMixin) {
        &.active, &:hover {
         color: #fff;
         background: #FCB140;
+      }
+
+      > .icon {
+        margin-left: 5px;
       }
     }
 }
