@@ -45,49 +45,51 @@
       </el-button>
     </div>
     <!-- list table -->
-    <el-table v-loading="listLoading"
-      :data="renderListData(list)"
-      style="width: 100%"
-      row-key="id"
-      border
-      fit
-      highlight-current-row
-      lazy
-      :load="load"
-      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
-      @sort-change="sortChange"
-    >
-      <!-- <el-table-column
-        v-if="list && list.data.length"
-        align="left"
-        label="序号"
-        width="50"
+    <div class="table-container">
+      <el-table v-loading="listLoading"
+        :data="renderListData(list)"
+        style="width: 100%"
+        row-key="id"
+        highlight-current-row
+        lazy
+        :load="load"
+        :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+        :cell-style="bodyCellStyle"
+        :header-cell-style="headerCellStyle"
+        @sort-change="sortChange"
       >
-        <template slot-scope="scope">
-          {{ scope.$index + 1 }}
-        </template>
-      </el-table-column> -->
-      <el-table-column
-        v-for="(attr, idx) in list.attrs"
-        :sortable="attr.sortable"
-        :prop="attr.value"
-        :label="attr.label"
-        :key="idx"
-        :width="attr.width ? attr.width : null"
-      />
-      <el-table-column
-        v-if="list && list.data.length"
-        fixed="right"
-        align="center"
-        label="操作"
-        width="150">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
-          <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-button type="text">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+        <!-- <el-table-column
+          v-if="list && list.data.length"
+          align="left"
+          label="序号"
+          width="50"
+        >
+          <template slot-scope="scope">
+            {{ scope.$index + 1 }}
+          </template>
+        </el-table-column> -->
+        <el-table-column
+          v-for="(attr, idx) in list.attrs"
+          :sortable="attr.sortable"
+          :prop="attr.value"
+          :label="attr.label"
+          :key="idx"
+          :width="attr.width ? attr.width : null"
+        />
+        <el-table-column
+          v-if="list && list.data.length"
+          fixed="right"
+          align="center"
+          label="操作"
+          width="150">
+          <template slot-scope="scope">
+            <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
+            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button type="text">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <!-- pagination -->
     <div class="block pagination">
       <el-pagination
@@ -116,6 +118,16 @@ export default class extends Vue {
   private path = ''; // 当前路由
   private url = ''; // api地址
   private filters = {};
+
+  private bodyCellStyle = {
+    'border-width': 0
+  }
+
+  private headerCellStyle = {
+    color: 'black',
+    background: '#F2F6FC',
+    'border-width': 0
+  }
 
   @Watch('$route', {
     immediate: true,
@@ -239,7 +251,10 @@ export default class extends Vue {
   }
 
   .filter-container {
+    padding: 25px;
     margin-bottom: 20px;
+    background: white;
+    border-radius: 6px;
 
     .filter-item {
       margin-right: 10px;
