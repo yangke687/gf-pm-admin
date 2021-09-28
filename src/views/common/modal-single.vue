@@ -76,8 +76,10 @@
             :value="form[attr.value]"
           >
             <el-tree
+              class="tree"
               :data="attr.options"
               :props="treeProps"
+              indent="10"
               @node-click="data => handleTreeNodeClick(data, attr.value)"
             />
           </el-option>
@@ -140,3 +142,10 @@ export default class extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .tree {
+    color: #1f2d3d;
+    font-weight: normal;
+  }
+</style>
