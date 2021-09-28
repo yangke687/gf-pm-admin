@@ -6,8 +6,8 @@ import {
   getModule
 } from 'vuex-module-decorators'
 import store from '@/store'
-import { getList } from '@/api/common'
-import { devices, patrols, repairs } from '@/mock/device'
+import { getList, getAttrOpts } from '@/api/common'
+// import { devices, patrols, repairs } from '@/mock/device'
 
 // 搜索栏按钮
 export interface IFilterBarBtn {
@@ -20,6 +20,7 @@ export interface IFilterBarBtn {
 export interface ITableColOpt {
   label: string
   value?: string | number
+  children?: ITableColOpt[]
 }
 
 /**
@@ -36,6 +37,7 @@ export interface ITableCol {
   value: string
   type: string
   show: ETableColShow[]
+  url?: string // 动态加载 options 的地址
   options?: ITableColOpt[]
   filterable?: boolean
 }
@@ -137,6 +139,29 @@ export class Common extends VuexModule {
   }): Promise<any> {
     const { data } = await getList(path, { currentPage: page, ...props })
     return data
+  }
+
+  @Mutation
+  fetchAttrOptionsSuccess({ attr, tree }) {
+    console.log('here', attr, tree)
+    this.list.attrs = this.list.attrs.map((a: ITableCol) => {
+      return a.value !== attr.value
+        ? a
+        : {
+            ...a,
+            options: tree
+          }
+    })
+  }
+
+  @Action({ commit: 'fetchAttrOptionsSuccess' })
+  public async fetchAttrOptions(attr: ITableCol): Promise<any> {
+    if (attr.url) {
+      const {
+        data: { tree }
+      } = await getAttrOpts(`api${attr.url}`)
+      return { attr, tree }
+    }
   }
 
   // 单条数据

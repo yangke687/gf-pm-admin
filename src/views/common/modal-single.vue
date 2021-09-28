@@ -69,6 +69,19 @@
             :key="idx"
           />
         </el-checkbox-group>
+        <!-- tree -->
+        <el-select :value="form[attr.value]" v-if="attr.type === 'tree'">
+          <el-option style="height: auto; padding: 0;"
+            :label="treeNodeLabel"
+            :value="form[attr.value]"
+          >
+            <el-tree
+              :data="attr.options"
+              :props="treeProps"
+              @node-click="data => handleTreeNodeClick(data, attr.value)"
+            />
+          </el-option>
+        </el-select>
       </el-form-item>
       <!-- 按钮 -->
       <el-form-item>
@@ -94,6 +107,14 @@ import { commonMod, ITableCol, ETableColShow } from '@/store/modules/common'
 export default class extends Vue {
   @Prop({ type: Boolean, default: false }) visible!: Boolean;
 
+  private treeNodeLabel = null
+
+  //
+  private treeProps = {
+    children: 'children',
+    label: 'name'
+  }
+
   private form: { [key:string]: any } = {}
 
   get attrs(): ITableCol[] {
@@ -106,6 +127,11 @@ export default class extends Vue {
 
   private onSubmit() {
     return null
+  }
+
+  private handleTreeNodeClick(data: any, attrVal: string) {
+    this.treeNodeLabel = data.name
+    this.form[attrVal] = data.id
   }
 
   created() {

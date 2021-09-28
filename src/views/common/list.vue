@@ -211,6 +211,13 @@ export default class extends Vue {
   private async getList(url: string, page: number) {
     this.listLoading = true
     await commonMod.fetchList({ path: url, page })
+
+    // 加载特殊列 options 备选数据
+    const attrs = commonMod.list.attrs.filter(attr => attr.url)
+    for (const attr of attrs) {
+      await commonMod.fetchAttrOptions(attr)
+    }
+
     this.listLoading = false
   }
 

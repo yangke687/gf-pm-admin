@@ -6,3 +6,5 @@ export const getList = (url: string, params: any) =>
     method: 'get',
     params
   })
+
+export const getAttrOpts = (url: string) => request({ url, method: 'get' })
