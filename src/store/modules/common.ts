@@ -9,15 +9,34 @@ import store from '@/store'
 import { getList } from '@/api/common'
 import { devices, patrols, repairs } from '@/mock/device'
 
-export interface TableColumnOpt {
+// 搜索栏按钮
+export interface IFilterBarBtn {
+  name: string
+  action: string // 点击按钮执行的动作
+  url: string
+  isCustom: Boolean
+}
+
+export interface ITableColOpt {
   label: string
   value?: string | number
 }
-export interface TableColumn {
+
+/**
+ * 实体列表字段显示的位置
+ * list: 该列在列表显示
+ * form: 该列在表单显示
+ */
+export enum ETableColShow {
+  LIST = 'list',
+  FORM = 'form'
+}
+export interface ITableCol {
   label: string
   value: string
   type: string
-  options?: TableColumnOpt[]
+  show: ETableColShow[]
+  options?: ITableColOpt[]
   filterable?: boolean
 }
 
@@ -31,24 +50,27 @@ interface MetaData {
   pagination?: PaginationData
 }
 
-export interface ITableDataItem {
+export interface ITableItem {
   id: number | string
+  hasChildren: number | boolean
 }
 
-export interface TableData {
-  data: ITableDataItem[]
-  attrs: TableColumn[]
+export interface ITable {
+  data: ITableItem[]
+  attrs: ITableCol[]
+  butList: IFilterBarBtn[] // 搜索栏按钮
+  optList: any[] // 列表操作列按钮
   meta: MetaData
 }
 
-const timeout = (ms: number): Function => {
-  return (data: TableData) =>
-    new Promise(resolve =>
-      setTimeout(() => {
-        resolve(data)
-      }, ms)
-    )
-}
+// const timeout = (ms: number): Function => {
+//   return (data: TableData) =>
+//     new Promise(resolve =>
+//       setTimeout(() => {
+//         resolve(data)
+//       }, ms)
+//     )
+// }
 
 // const request = (entity: string, page: number): Promise<TableData> => {
 //   const data: TableData = (() => {
@@ -84,19 +106,21 @@ const timeout = (ms: number): Function => {
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
   // 列表数据
-  list: TableData = {
+  list: ITable = {
     data: [],
     attrs: [],
+    butList: [],
+    optList: [],
     meta: { pagination: { pageSize: 10, totalPages: 1, currentPage: 1 } }
   }
 
   @Mutation
-  fetchListSuccess(list: TableData) {
+  fetchListSuccess(list: ITable) {
     this.list = {
       ...list,
       data: list.data.map(item => ({
         ...item,
-        hasChildren: true
+        hasChildren: item.hasChildren ? item.hasChildren > 0 : false
       }))
     }
   }

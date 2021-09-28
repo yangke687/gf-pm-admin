@@ -1,8 +1,8 @@
 <template>
   <div class="list-container">
-    <!-- filters -->
+    <!-- 搜索栏 -->
     <div class="filter-container">
-      <div class="fragment" v-for="(col, idx) in attrs" :key="idx">
+      <div class="fragment" v-for="(col, idx) in FilterableAttrs" :key="idx">
         <!-- text input -->
         <el-input
           v-if="col.type === 'text'"
@@ -37,14 +37,21 @@
           :placeholder="col.label"
         />
       </div>
-      <el-button v-if="attrs.length" class="filter-item btn" type="primary" icon="el-icon-search" @click="handleFilter">
+      <el-button v-if="FilterableAttrs.length" class="filter-item btn" type="primary" icon="el-icon-search" @click="handleFilter">
         查询
       </el-button>
-      <el-button class="filter-item btn" type="primary" icon="el-icon-plus" @click="handleAdd">
-        新建
+      <el-button
+        type="primary"
+        icon="el-icon-plus"
+        class="filter-item btn"
+        v-for="btn in FilterBarBtns"
+        :key="btn.action"
+        @click="handleBtnClick(btn)"
+      >
+        {{ btn.name }}
       </el-button>
     </div>
-    <!-- list table -->
+    <!-- 列表 -->
     <div class="table-container">
       <el-table v-loading="listLoading"
         :data="renderListData(list)"
@@ -69,7 +76,7 @@
           </template>
         </el-table-column> -->
         <el-table-column
-          v-for="(attr, idx) in list.attrs"
+          v-for="(attr, idx) in ListAttrs"
           :sortable="attr.sortable"
           :prop="attr.value"
           :label="attr.label"
@@ -90,7 +97,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <!-- pagination -->
+    <!-- 分页 -->
     <div class="block pagination">
       <el-pagination
       background
@@ -108,16 +115,32 @@
 import { find, cloneDeep } from 'lodash'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
-import { commonMod, TableData, ITableDataItem, TableColumn, TableColumnOpt } from '@/store/modules/common'
+import { commonMod, ITable, ITableItem, ITableCol, ITableColOpt, ETableColShow, IFilterBarBtn} from '@/store/modules/common'
 import { getList } from '@/api/common'
-import toUrl from './pathToUrl'
+import toUrl from './path-to-url'
 
 @Component
 export default class extends Vue {
+  // 列表加载状态
   private listLoading = false
-  private path = ''; // 当前路由
-  private url = ''; // api地址
+
+  // 当前路由
+  private path = ''
+
+  // 过滤列表数据搜索条件
   private filters = {};
+
+  // 获取列表数据的地址
+  private listUrl = ''
+
+  // 新建实体的地址
+  private addUrl = ''
+
+  // 保存实体的地址
+  private saveUrl = ''
+
+  // 弹窗控制开关
+  private modalShown = false
 
   private bodyCellStyle = {
     'border-width': 0
@@ -140,7 +163,7 @@ export default class extends Vue {
 
     if (toPath && toPath !== fromPath) {
       this.path = toPath
-      this.url = url
+      this.listUrl = url
       this.getList(url, 1)
     }
   }
@@ -153,11 +176,27 @@ export default class extends Vue {
     return commonMod.list.meta.pagination
   }
 
-  get attrs() {
+  // 列表字段
+  get ListAttrs() {
+    return commonMod.list.attrs.filter(attr => attr.show.includes(ETableColShow.LIST))
+  }
+
+  // 可查询字段
+  get FilterableAttrs() {
     return commonMod.list.attrs.filter(attr => attr.filterable)
   }
 
-  // 加载列表
+  // 搜索栏按钮
+  get FilterBarBtns() {
+    return commonMod.list.butList
+  }
+
+  // 操作列按钮
+  get OpBtns() {
+    return commonMod.list.optList
+  }
+
+  // 加载列表数据
   private async getList(url: string, page: number) {
     this.listLoading = true
     await commonMod.fetchList({ path: url, page })
@@ -165,15 +204,16 @@ export default class extends Vue {
   }
 
   // 加载树形子级数据
-  private async load(tree: ITableDataItem, treeNode: object, resolve: Function) {
+  private async load(tree: ITableItem, treeNode: object, resolve: Function) {
     const { id } = tree
-    const { data: { data } } = await getList(this.url, { page: 1, parentId: id })
+    const { data: { data } } = await getList(this.listUrl, { page: 1, parentId: id })
     resolve(data)
   }
 
+  // 翻页
   private async onPageChange(page: number) {
     this.listLoading = true
-    await commonMod.fetchList({ path: this.url, page })
+    await commonMod.fetchList({ path: this.listUrl, page })
     this.listLoading = false
   }
 
@@ -192,6 +232,23 @@ export default class extends Vue {
     this.$router.push(path)
   }
 
+  // 按钮点击
+  private handleBtnClick(btn: IFilterBarBtn) {
+    const { action } = btn
+
+    // 新建实体弹窗
+    if (action === 'add') {
+      this.handleAdd()
+      this.modalShown = true
+    }
+
+    // 编辑实体弹窗
+    if (action === 'edit') {
+      this.modalShown = true
+    }
+  }
+
+  // 新建实体
   private handleAdd() {
     const single: { [key: string]: any } = {}
 
@@ -206,9 +263,10 @@ export default class extends Vue {
     commonMod.setSingle(single)
 
     // 路由跳转
-    this.gotoSingleForm()
+    // this.gotoSingleForm()
   }
 
+  // 编辑实体
   private handleEdit(single: { id: number }) {
     // 设置单条记录
     const data: any = find(this.list.data, (row: { id: number }) => row.id === single.id)
@@ -217,14 +275,14 @@ export default class extends Vue {
     this.gotoSingleForm()
   }
 
-  private renderListData(list: TableData) {
+  private renderListData(list: ITable) {
     const data: any[] = cloneDeep(list.data)
     return data.map(row => {
       for (const colName in row) {
-        const attr = find(list.attrs, (attr: TableColumn) => attr.value === colName)
+        const attr = find(list.attrs, (attr: ITableCol) => attr.value === colName)
         if (attr) {
           if (attr.type === 'radio') {
-            const option = find(attr.options, (opt: TableColumnOpt) => opt.value === row[colName])
+            const option = find(attr.options, (opt: ITableColOpt) => opt.value === row[colName])
             if (option) {
               row[colName] = option.label
             }

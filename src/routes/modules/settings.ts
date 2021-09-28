@@ -42,6 +42,18 @@ export default [
           title: '菜单管理',
           icon: 'icon-menu'
         }
+      },
+
+      {
+        path: '/settings/sys/deps',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: '组织机构管理',
+          icon: 'icon-menu'
+        }
       }
     ]
   }

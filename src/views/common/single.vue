@@ -83,17 +83,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import { commonMod, TableColumn, TableData } from '@/store/modules/common'
+import { commonMod, ITableCol, Table } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
   private form: { [key:string]: any } = {}
 
-  get list(): TableData {
+  get list(): Table {
     return commonMod.list
   }
 
-  get attrs(): TableColumn[] {
+  get attrs(): ITableCol[] {
     return commonMod.list.attrs
   }
 
