@@ -141,14 +141,6 @@ export default [
         meta: { title: '设备信息' }
       },
       {
-        path: 'single',
-        component: () =>
-          import(
-            /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
-          ),
-        meta: { title: '新建/编辑', hidden: true }
-      },
-      {
         path: 'maintain',
         component: RouterView,
         meta: { title: '设备维保' },
@@ -162,28 +154,12 @@ export default [
             meta: { title: '巡查记录' }
           },
           {
-            path: 'patrol/single',
-            component: () =>
-              import(
-                /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
-              ),
-            meta: { title: '新建/编辑', hidden: true }
-          },
-          {
             path: 'repair/list',
             component: () =>
               import(
                 /* webpackChunkName: "common-data-list" */ '@/views/common/list.vue'
               ),
             meta: { title: '维修记录' }
-          },
-          {
-            path: 'repair/single',
-            component: () =>
-              import(
-                /* webpackChunkName: "common-data-single" */ '@/views/common/single.vue'
-              ),
-            meta: { title: '新建/编辑', hidden: true }
           }
         ]
       }

@@ -1,5 +1,10 @@
 <template>
-  <div class="app-container">
+  <el-dialog
+    :title="form && form.id ? '编辑' : '新建'"
+    :visible="visible"
+    class="form-container"
+    @close="onCancel"
+  >
     <el-form
       ref="form"
       :model="form"
@@ -73,40 +78,30 @@
         >
           提交
         </el-button>
-        <el-button @click="goBack">
-          返回
+        <el-button @click="onCancel">
+          取消
         </el-button>
       </el-form-item>
     </el-form>
-  </div>
+  </el-dialog>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import { commonMod, ITableCol, Table } from '@/store/modules/common'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+import { commonMod, ITableCol, ETableColShow } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
+  @Prop({ type: Boolean, default: false }) visible!: Boolean;
+
   private form: { [key:string]: any } = {}
 
-  get list(): Table {
-    return commonMod.list
-  }
-
   get attrs(): ITableCol[] {
-    return commonMod.list.attrs
+    return commonMod.list.attrs.filter(attr => attr.show.includes(ETableColShow.FORM) && attr.type !== 'hidden')
   }
 
-  private async getList() {
-    const { path } = this.$router.currentRoute
-    const urlPieces = path.split('/');
-    urlPieces[urlPieces.length - 1] = 'list'
-    const newPath = urlPieces.join('/')
-    await commonMod.fetchList({ path: newPath, page: 1 })
-  }
-
-  private goBack() {
-    this.$router.go(-1)
+  private onCancel() {
+    this.$emit('onClose')
   }
 
   private onSubmit() {
@@ -114,11 +109,6 @@ export default class extends Vue {
   }
 
   created() {
-    // 如果列表数据为空, 加载
-    if (!this.list || !this.list.data || this.list.data.length === 0) {
-      this.getList()
-    }
-
     // 加载单条数据
     this.form = commonMod.single
   }

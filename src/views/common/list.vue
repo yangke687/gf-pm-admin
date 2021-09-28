@@ -108,6 +108,12 @@
       @current-change="onPageChange"
      />
     </div>
+
+    <!-- 新建/编辑 实体弹窗 -->
+    <Modal
+      :visible="modalShown"
+      @onClose="closeModal"
+    />
   </div>
 </template>
 
@@ -118,8 +124,13 @@ import { Route } from 'vue-router'
 import { commonMod, ITable, ITableItem, ITableCol, ITableColOpt, ETableColShow, IFilterBarBtn} from '@/store/modules/common'
 import { getList } from '@/api/common'
 import toUrl from './path-to-url'
+import Modal from './modal-single.vue'
 
-@Component
+@Component({
+  components: {
+    Modal
+  }
+})
 export default class extends Vue {
   // 列表加载状态
   private listLoading = false
@@ -178,7 +189,7 @@ export default class extends Vue {
 
   // 列表字段
   get ListAttrs() {
-    return commonMod.list.attrs.filter(attr => attr.show.includes(ETableColShow.LIST))
+    return commonMod.list.attrs.filter(attr => attr.show.includes(ETableColShow.LIST) && attr.type !== 'hidden')
   }
 
   // 可查询字段
@@ -294,6 +305,10 @@ export default class extends Vue {
       }
       return row
     })
+  }
+
+  private closeModal() {
+    this.modalShown = false
   }
 }
 </script>
