@@ -111,7 +111,7 @@ export default class extends Vue {
 
   private treeNodeLabel = null
 
-  //
+  // 树形组件配置参数
   private treeProps = {
     children: 'children',
     label: 'name'
