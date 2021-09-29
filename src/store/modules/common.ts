@@ -6,7 +6,7 @@ import {
   getModule
 } from 'vuex-module-decorators'
 import store from '@/store'
-import { getList, getAttrOpts } from '@/api/common'
+import { getList, getAttrOpts, addEntity } from '@/api/common'
 // import { devices, patrols, repairs } from '@/mock/device'
 
 // 搜索栏按钮
@@ -141,9 +141,15 @@ export class Common extends VuexModule {
     return data
   }
 
+  // 加载特殊列备选项
   @Mutation
-  fetchAttrOptionsSuccess({ attr, tree }) {
-    console.log('here', attr, tree)
+  fetchAttrOptionsSuccess({
+    attr,
+    tree
+  }: {
+    attr: ITableCol
+    tree: any
+  }): void {
     this.list.attrs = this.list.attrs.map((a: ITableCol) => {
       return a.value !== attr.value
         ? a
@@ -162,6 +168,19 @@ export class Common extends VuexModule {
       } = await getAttrOpts(`api${attr.url}`)
       return { attr, tree }
     }
+  }
+
+  // 新建实体
+  @Action
+  public async create({
+    path,
+    formData
+  }: {
+    path: string
+    formData: object
+  }): Promise<any> {
+    const res = await addEntity(`${path}`, formData)
+    return res
   }
 
   // 单条数据

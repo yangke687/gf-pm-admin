@@ -79,7 +79,7 @@
               class="tree"
               :data="attr.options"
               :props="treeProps"
-              indent="10"
+              :indent="10"
               @node-click="data => handleTreeNodeClick(data, attr.value)"
             />
           </el-option>
@@ -107,7 +107,8 @@ import { commonMod, ITableCol, ETableColShow } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
-  @Prop({ type: Boolean, default: false }) visible!: Boolean;
+  @Prop({ type: Boolean, default: false }) visible!: boolean;
+  @Prop({ type: String }) submitUrl!: string;
 
   private treeNodeLabel = null
 
@@ -127,8 +128,30 @@ export default class extends Vue {
     this.$emit('onClose')
   }
 
-  private onSubmit() {
-    return null
+  private async onSubmit() {
+    if (!this.form.id) {
+      const { code } = await commonMod.create({
+        path: this.submitUrl,
+        formData: this.form
+      })
+
+      if (code === 0) {
+        this.$message({
+          message: '恭喜你，这是一条成功消息',
+          type: 'success'
+        })
+
+        // 重置表单
+        commonMod.setSingle({})
+        this.form = {}
+
+        // 关闭弹窗
+        this.$emit('onClose')
+
+        // 重新加载列表
+        this.$emit('onSuccess')
+      }
+    }
   }
 
   private handleTreeNodeClick(data: any, attrVal: string) {

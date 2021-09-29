@@ -112,7 +112,9 @@
     <!-- 新建/编辑 实体弹窗 -->
     <Modal
       :visible="modalShown"
+      :submitUrl="submitUrl"
       @onClose="closeModal"
+      @onSuccess="getList(listUrl, 1)"
     />
   </div>
 </template>
@@ -121,7 +123,7 @@
 import { find, cloneDeep } from 'lodash'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Route } from 'vue-router'
-import { commonMod, ITable, ITableItem, ITableCol, ITableColOpt, ETableColShow, IFilterBarBtn} from '@/store/modules/common'
+import { commonMod, ITable, ITableItem, ITableCol, ITableColOpt, ETableColShow, IFilterBarBtn } from '@/store/modules/common'
 import { getList } from '@/api/common'
 import toUrl from './path-to-url'
 import Modal from './modal-single.vue'
@@ -144,11 +146,8 @@ export default class extends Vue {
   // 获取列表数据的地址
   private listUrl = ''
 
-  // 新建实体的地址
-  private addUrl = ''
-
-  // 保存实体的地址
-  private saveUrl = ''
+  // 新建/编辑实体弹窗表单的提交地址
+  private submitUrl = ''
 
   // 弹窗控制开关
   private modalShown = false
@@ -258,6 +257,8 @@ export default class extends Vue {
     if (action === 'add') {
       this.handleAdd()
       this.modalShown = true
+      // 设置表单提交地址
+      this.submitUrl = btn.url
     }
 
     // 编辑实体弹窗
@@ -279,9 +280,6 @@ export default class extends Vue {
 
     // 清空单条记录
     commonMod.setSingle(single)
-
-    // 路由跳转
-    // this.gotoSingleForm()
   }
 
   // 编辑实体
