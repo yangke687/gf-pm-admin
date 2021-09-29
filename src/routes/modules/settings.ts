@@ -40,7 +40,8 @@ export default [
           ),
         meta: {
           title: '菜单管理',
-          icon: 'icon-menu'
+          icon: 'icon-menu',
+          key: 'sys-menu'
         }
       },
 

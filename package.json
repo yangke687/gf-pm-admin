@@ -26,6 +26,7 @@
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1",
+    "vue-router-tab": "^1.2.7",
     "vue-svgicon": "^3.2.9",
     "vuex": "^3.6.2",
     "vuex-module-decorators": "^1.0.1"

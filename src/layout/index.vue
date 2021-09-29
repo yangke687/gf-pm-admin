@@ -26,7 +26,7 @@
     <!-- 主内容 -->
     <el-main class="main-container">
       <!-- 模块导航 -->
-      <div class="nav-container">
+      <!-- <div class="nav-container">
         <router-link v-for="(tab, idx) in navTabs"
           :class="{active: $route.path === tab.to}"
           :to="tab.to"
@@ -35,7 +35,7 @@
           {{tab.name}}
           <span class="icon-close icon-12 icon" v-if="tab.closeable" @click="removeNavTab(tab.name)" />
         </router-link>
-      </div>
+      </div> -->
       <!-- 主页面 -->
       <app-main />
     </el-main>
@@ -102,6 +102,46 @@ export default class extends mixins(ResizeMixin) {
 }
 </script>
 
+<style lang="scss">
+  .router-tab__header {
+    border-width: 0;
+  }
+
+  .router-tab__nav {
+    @include flex-horizon;
+
+    > li {
+      margin-left: 5px;
+      margin-bottom: -2px;
+      padding: 11px 12px;
+      color: #E6A23C;
+      background: #FFF7EB;
+      font-size: 14px;
+      border-radius: 4px 4px 0px 0px;
+      border-width: 0;
+
+      &.is-active, &:hover {
+        color: #fff;
+        background: #FCB140;
+      }
+
+      &:first-child {
+        border-width: 0;
+      }
+    }
+  }
+
+  .router-tab__item-close,
+  .router-tab__item-close {
+    &:after,&:before {
+        background-color: white !important;
+    }
+    &:hover {
+       background-color: #E6A23C !important;
+    }
+  }
+</style>
+
 <style lang="scss" scoped>
 .el-header {
   @include flex-justify-space-between;
@@ -126,30 +166,6 @@ export default class extends mixins(ResizeMixin) {
   height: 100%;
 }
 
-.nav-container {
-  @include flex-horizon;
-
-    > a {
-      @include flex-align-items-center;
-      margin-left: 5px;
-      padding: 11px 12px;
-      color: #E6A23C;
-      background: #FFF7EB;
-      font-size: 14px;
-      border-radius: 4px 4px 0px 0px;
-      cursor: pointer;
-
-       &.active, &:hover {
-        color: #fff;
-        background: #FCB140;
-      }
-
-      > .icon {
-        margin-left: 5px;
-      }
-    }
-}
-
 .drawer-bg {
   background: #000;
   opacity: 0.3;
@@ -161,7 +177,7 @@ export default class extends mixins(ResizeMixin) {
 }
 
 .main-container {
-  padding: 17px 0 0 70px;
+  padding: 0 0 0 70px;
   transition: margin-left .28s;
   position: relative;
 }

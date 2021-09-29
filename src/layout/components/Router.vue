@@ -1,6 +1,6 @@
 <template>
 <section class="vue-router-wrap">
-  <router-view />
+  <router-tab />
 </section>
 </template>
 
