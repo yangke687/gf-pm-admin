@@ -7,12 +7,16 @@ export const getList = (url: string, params: any) =>
     params
   })
 
+export const getSingle = (url: string) => request({ url, method: 'get' })
+
 export const getAttrOpts = (url: string) => request({ url, method: 'get' })
 
-// 创建实体
-export const addEntity = (url: string, data: object) =>
+export const addSingle = (url: string, data: object) =>
   request({
     url: `api${url}`,
     method: 'post',
     data
   })
+
+export const editSingle = (url: string, data: object) =>
+  request({ url: `api${url}`, method: 'put', data })

@@ -90,9 +90,17 @@
           label="操作"
           width="150">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
+            <el-button
+              type="text"
+              v-for="(btn, idx) in OpBtns"
+              :key="idx"
+              @click="handleBtnClick({...btn, id: scope.row.id})"
+            >
+              {{ btn.name }}
+            </el-button>
+            <!-- <el-button @click="handleClick(scope.row)"  type="text">查看</el-button>
             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button type="text">删除</el-button>
+            <el-button type="text">删除</el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -242,13 +250,6 @@ export default class extends Vue {
     return null
   }
 
-  private gotoSingleForm() {
-    const urlPieces = this.path.split('/')
-    urlPieces[urlPieces.length - 1] = 'single'
-    const path = urlPieces.join('/')
-    this.$router.push(path)
-  }
-
   // 按钮点击
   private handleBtnClick(btn: IFilterBarBtn) {
     const { action } = btn
@@ -263,7 +264,10 @@ export default class extends Vue {
 
     // 编辑实体弹窗
     if (action === 'edit') {
+      this.handleEdit(btn)
       this.modalShown = true
+      // 设置表单提交地址
+      this.submitUrl = `${btn.url}/${(btn as any).id}`
     }
   }
 
@@ -278,17 +282,15 @@ export default class extends Vue {
       }
     }
 
-    // 清空单条记录
+    // 清空实体
     commonMod.setSingle(single)
   }
 
   // 编辑实体
-  private handleEdit(single: { id: number }) {
-    // 设置单条记录
-    const data: any = find(this.list.data, (row: { id: number }) => row.id === single.id)
-    commonMod.setSingle(data)
-    // 路由跳转
-    this.gotoSingleForm()
+  private handleEdit(btn: IFilterBarBtn) {
+    const { id, url } = btn as any
+    // 获取实体信息
+    commonMod.fetchSingle({ id, path: url })
   }
 
   private renderListData(list: ITable) {

@@ -6,7 +6,13 @@ import {
   getModule
 } from 'vuex-module-decorators'
 import store from '@/store'
-import { getList, getAttrOpts, addEntity } from '@/api/common'
+import {
+  getList,
+  getSingle,
+  getAttrOpts,
+  addSingle,
+  editSingle
+} from '@/api/common'
 // import { devices, patrols, repairs } from '@/mock/device'
 
 // 搜索栏按钮
@@ -63,6 +69,10 @@ export interface ITable {
   butList: IFilterBarBtn[] // 搜索栏按钮
   optList: any[] // 列表操作列按钮
   meta: MetaData
+}
+
+export interface ISingle {
+  id?: number | string
 }
 
 // const timeout = (ms: number): Function => {
@@ -170,6 +180,19 @@ export class Common extends VuexModule {
     }
   }
 
+  // 获取实体
+  @Action({ commit: 'setSingle' })
+  public async fetchSingle({
+    path,
+    id
+  }: {
+    path: string
+    id: number
+  }): Promise<any> {
+    const res = await getSingle(`api${path}/${id}`)
+    return res.data
+  }
+
   // 新建实体
   @Action
   public async create({
@@ -179,15 +202,27 @@ export class Common extends VuexModule {
     path: string
     formData: object
   }): Promise<any> {
-    const res = await addEntity(`${path}`, formData)
+    const res = await addSingle(path, formData)
     return res
   }
 
+  // 编辑实体
+  @Action
+  public async update({
+    path,
+    formData
+  }: {
+    path: string
+    formData: object
+  }): Promise<any> {
+    return await editSingle(path, formData)
+  }
+
   // 单条数据
-  single: Object = {}
+  single: ISingle = {}
 
   @Mutation
-  setSingle(singleData: Object) {
+  setSingle(singleData: ISingle) {
     this.single = singleData
   }
 }

@@ -103,7 +103,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { commonMod, ITableCol, ETableColShow } from '@/store/modules/common'
+import { commonMod, ITableCol, ETableColShow, ISingle } from '@/store/modules/common'
 
 @Component
 export default class extends Vue {
@@ -118,8 +118,6 @@ export default class extends Vue {
     label: 'name'
   }
 
-  private form: { [key:string]: any } = {}
-
   get attrs(): ITableCol[] {
     return commonMod.list.attrs.filter(attr => attr.show.includes(ETableColShow.FORM) && attr.type !== 'hidden')
   }
@@ -129,39 +127,51 @@ export default class extends Vue {
   }
 
   private async onSubmit() {
+    let code
+
+    // 新建实体
     if (!this.form.id) {
-      const { code } = await commonMod.create({
+      const res = await commonMod.create({
         path: this.submitUrl,
         formData: this.form
       })
+      code = res.code
+    }
 
-      if (code === 0) {
-        this.$message({
-          message: '恭喜你，这是一条成功消息',
-          type: 'success'
-        })
+    // 编辑实体
+    if (this.form.id) {
+      const res = await commonMod.update({
+        path: this.submitUrl,
+        formData: this.form
+      })
+      code = res.code
+    }
 
-        // 重置表单
-        commonMod.setSingle({})
-        this.form = {}
+    if (code === 0) {
+      this.$message({
+        message: '操作成功',
+        type: 'success'
+      })
 
-        // 关闭弹窗
-        this.$emit('onClose')
+      // 重置表单
+      commonMod.setSingle({})
 
-        // 重新加载列表
-        this.$emit('onSuccess')
-      }
+      // 关闭弹窗
+      this.$emit('onClose')
+
+      // 重新加载列表
+      this.$emit('onSuccess')
     }
   }
 
   private handleTreeNodeClick(data: any, attrVal: string) {
     this.treeNodeLabel = data.name
-    this.form[attrVal] = data.id
+    // this.form[attrVal] = data.id
+    commonMod.setSingle({ ...this.form, [attrVal]: data.id })
   }
 
-  created() {
-    // 加载单条数据
-    this.form = commonMod.single
+  get form(): ISingle {
+    return commonMod.single
   }
 }
 </script>
