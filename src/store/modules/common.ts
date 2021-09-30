@@ -11,7 +11,8 @@ import {
   getSingle,
   getAttrOpts,
   addSingle,
-  editSingle
+  editSingle,
+  delSingle
 } from '@/api/common'
 // import { devices, patrols, repairs } from '@/mock/device'
 
@@ -115,15 +116,22 @@ export interface ISingle {
 //   return timeout(1000)({ ...data, data: dataItems })
 // }
 
+const initList = {
+  data: [],
+  attrs: [],
+  butList: [],
+  optList: [],
+  meta: { pagination: { pageSize: 10, totalPages: 1, currentPage: 1 } }
+}
+
 @Module({ dynamic: true, store, name: 'common' })
 export class Common extends VuexModule {
   // 列表数据
-  list: ITable = {
-    data: [],
-    attrs: [],
-    butList: [],
-    optList: [],
-    meta: { pagination: { pageSize: 10, totalPages: 1, currentPage: 1 } }
+  list: ITable = initList
+
+  @Mutation
+  resetList() {
+    this.list = initList
   }
 
   @Mutation
@@ -216,6 +224,12 @@ export class Common extends VuexModule {
     formData: object
   }): Promise<any> {
     return await editSingle(path, formData)
+  }
+
+  // 删除实体
+  @Action
+  public async del(path: string): Promise<any> {
+    return await delSingle(path)
   }
 
   // 单条数据

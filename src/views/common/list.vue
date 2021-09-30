@@ -122,7 +122,7 @@
       :visible="modalShown"
       :submitUrl="submitUrl"
       @onClose="closeModal"
-      @onSuccess="getList(listUrl, 1)"
+      @onSuccess="cbModal"
     />
   </div>
 </template>
@@ -269,6 +269,12 @@ export default class extends Vue {
       // 设置表单提交地址
       this.submitUrl = `${btn.url}/${(btn as any).id}`
     }
+
+    // 删除实体
+    if (action === 'del') {
+      this.handleDel(btn)
+      this.submitUrl = `${btn.url}/${(btn as any).id}`
+    }
   }
 
   // 新建实体
@@ -291,6 +297,39 @@ export default class extends Vue {
     const { id, url } = btn as any
     // 获取实体信息
     commonMod.fetchSingle({ id, path: url })
+  }
+
+  // 删除实体
+  private handleDel(btn: IFilterBarBtn) {
+    this.$confirm('此操作将永久删除该项, 是否继续?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(async () => {
+      const { id, url } = btn as any
+
+      // 删除实体
+      await commonMod.del(`${url}/${id}`)
+
+      // 重新加载
+      await this.cbModal()
+
+      await this.$message({
+        type: 'success',
+        message: '删除成功!'
+      })
+    }).catch(() => {
+      this.$message({
+        type: 'info',
+        message: '已取消删除'
+      })
+    })
+  }
+
+  // 弹窗回调
+  private async cbModal() {
+    await commonMod.resetList()
+    await this.getList(this.listUrl, 1)
   }
 
   private renderListData(list: ITable) {
@@ -332,7 +371,6 @@ export default class extends Vue {
 
   .filter-container {
     padding: 25px;
-    margin-bottom: 20px;
     background: white;
     border-radius: 6px;
 
@@ -343,5 +381,9 @@ export default class extends Vue {
         margin-left: 0;
       }
     }
+  }
+
+  .table-cotnainer {
+    padding: 0 25px;
   }
 </style>

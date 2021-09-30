@@ -20,3 +20,6 @@ export const addSingle = (url: string, data: object) =>
 
 export const editSingle = (url: string, data: object) =>
   request({ url: `api${url}`, method: 'put', data })
+
+export const delSingle = (url: string) =>
+  request({ url: `api${url}`, method: 'delete' })
