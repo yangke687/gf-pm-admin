@@ -72,7 +72,7 @@
         <!-- tree -->
         <el-select :value="form[attr.value]" v-if="attr.type === 'tree'">
           <el-option style="height: auto; padding: 0;"
-            :label="treeNodeLabel"
+            :label="form[`${attr.value}_name`]"
             :value="form[attr.value]"
           >
             <el-tree
@@ -165,9 +165,7 @@ export default class extends Vue {
   }
 
   private handleTreeNodeClick(data: any, attrVal: string) {
-    this.treeNodeLabel = data.name
-    // this.form[attrVal] = data.id
-    commonMod.setSingle({ ...this.form, [attrVal]: data.id })
+    commonMod.setSingle({ ...this.form, [attrVal]: data.id, [`${attrVal}_name`]: data.name })
   }
 
   get form(): ISingle {

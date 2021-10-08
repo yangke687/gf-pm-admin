@@ -237,7 +237,7 @@ export default class extends Vue {
 
     if (!tree.hasChildren) {
       const id = tree.id
-      this.$set(this.$refs.table.store.states.lazyTreeNodeMap, id, [])
+      this.$set((this.$refs.table as any).store.states.lazyTreeNodeMap, id, [])
     }
   }
 
@@ -311,7 +311,7 @@ export default class extends Vue {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'warning'
-    }).then(async () => {
+    }).then(async() => {
       const { id, url } = btn as any
 
       // 删除实体
@@ -389,7 +389,7 @@ export default class extends Vue {
     }
   }
 
-  .table-cotnainer {
+  .table-container {
     padding: 0 25px;
   }
 </style>

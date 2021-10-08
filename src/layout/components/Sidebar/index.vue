@@ -228,7 +228,7 @@ export default class extends Vue {
 
     &-container {
       display: flex;
-      width: 800px;
+      flex-wrap: wrap;
       height: 100%;
       padding: 28px 25px;
     }
