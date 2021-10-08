@@ -54,6 +54,7 @@
     <!-- 列表 -->
     <div class="table-container">
       <el-table v-loading="listLoading"
+        ref="table"
         :data="renderListData(list)"
         style="width: 100%"
         row-key="id"
@@ -233,6 +234,11 @@ export default class extends Vue {
     const { id } = tree
     const { data: { data } } = await getList(this.listUrl, { page: 1, parentId: id })
     resolve(data)
+
+    if (!tree.hasChildren) {
+      const id = tree.id
+      this.$set(this.$refs.table.store.states.lazyTreeNodeMap, id, [])
+    }
   }
 
   // 翻页
