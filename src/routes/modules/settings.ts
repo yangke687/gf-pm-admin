@@ -55,6 +55,66 @@ export default [
           title: '组织机构管理',
           icon: 'icon-menu'
         }
+      },
+
+      {
+        path: '/settings/sys/dicts',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: '字典管理',
+          icon: 'icon-menu'
+        }
+      },
+
+      {
+        path: '/settings/sys/users',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: '用户管理',
+          icon: 'icon-menu'
+        }
+      },
+
+      {
+        path: '/settings/sys/logs',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: '日志管理',
+          icon: 'icon-menu'
+        }
+      },
+
+      {
+        path: 'settings/sys/sql',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: 'SQL管理',
+          icon: 'icon-menu'
+        }
+      },
+
+      {
+        path: 'settings/sys/config',
+        component: () =>
+          import(
+            /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
+          ),
+        meta: {
+          title: '系统管理',
+          icon: 'icon-menu'
+        }
       }
     ]
   }
