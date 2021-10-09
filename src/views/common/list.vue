@@ -109,13 +109,13 @@
     <!-- 分页 -->
     <div class="block pagination">
       <el-pagination
-      background
-      layout="prev, pager, next"
-      :page-size="pagination.pageSize"
-      :current-page="pagination.currentPage"
-      :total="pagination.totalPages"
-      @current-change="onPageChange"
-     />
+        background
+        layout="prev, pager, next"
+        :page-size="pagination.pageSize"
+        :current-page="pagination.currentPage"
+        :total="pagination.total"
+        @current-change="onPageChange"
+      />
     </div>
 
     <!-- 新建/编辑 实体弹窗 -->

@@ -52,7 +52,7 @@ export interface ITableCol {
 interface PaginationData {
   pageSize: number
   currentPage: number
-  totalPages: number
+  total: number
 }
 
 interface MetaData {
@@ -121,7 +121,7 @@ const initList = {
   attrs: [],
   butList: [],
   optList: [],
-  meta: { pagination: { pageSize: 10, totalPages: 1, currentPage: 1 } }
+  meta: { pagination: { pageSize: 10, total: 10, currentPage: 1 } }
 }
 
 @Module({ dynamic: true, store, name: 'common' })

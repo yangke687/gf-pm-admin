@@ -58,7 +58,7 @@ export default {
     pagination: {
       pageSize: 1,
       currentPage: 1,
-      totalPages: 3
+      total: 3
     }
   }
 }
