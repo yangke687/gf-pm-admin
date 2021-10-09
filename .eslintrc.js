@@ -6,10 +6,14 @@ module.exports = {
   extends: [
     'plugin:vue/essential',
     '@vue/standard',
-    '@vue/typescript/recommended'
+    '@vue/typescript/recommended',
+    'plugin:vue/recommended',
+    'eslint:recommended'
   ],
   parserOptions: {
-    ecmaVersion: 2020
+    ecmaVersion: 2020,
+    parser: 'babel-eslint',
+    sourceType: 'module'
   },
   rules: {
     '@typescript-eslint/ban-types': 'off',
