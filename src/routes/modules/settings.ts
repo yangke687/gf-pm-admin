@@ -94,7 +94,7 @@ export default [
       },
 
       {
-        path: 'settings/sys/sql',
+        path: '/settings/sys/sql',
         component: () =>
           import(
             /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
@@ -106,7 +106,7 @@ export default [
       },
 
       {
-        path: 'settings/sys/config',
+        path: '/settings/sys/config',
         component: () =>
           import(
             /* webpackChunkName: "settings-sys-menu" */ '@/views/common/list.vue'
